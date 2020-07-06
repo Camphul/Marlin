@@ -36,7 +36,7 @@
  * Advanced settings can be found in Configuration_adv.h
  *
  */
-#define CONFIGURATION_H_VERSION 020021
+#define CONFIGURATION_H_VERSION 020022
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -763,7 +763,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 400, 7500 }
+#define DEFAULT_MAX_ACCELERATION      { 12000, 12000, 1200, 7500 }
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -986,10 +986,10 @@
 #define PROBING_MARGIN 10
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 8000
+#define XY_PROBE_SPEED 12000
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+#define Z_PROBE_SPEED_FAST (HOMING_FEEDRATE_Z * 1.5)
 
 // Feedrate (mm/m) for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST/ 2)
@@ -1387,7 +1387,7 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (4*60)
+#define HOMING_FEEDRATE_Z   (4*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -1400,7 +1400,7 @@
  * This feature corrects for misalignment in the XYZ axes.
  *
  * Take the following steps to get the bed skew in the XY plane:
- *  1. Print a test square (e.g., https://www.thingiverse.com/thing:2563185)
+ *  1. Print a test square (e.g., https://www.thingiverse.com/thing:2563185)q
  *  2. For XY_DIAG_AC measure the diagonal A to C
  *  3. For XY_DIAG_BD measure the diagonal B to D
  *  4. For XY_SIDE_AD measure the edge A to D
