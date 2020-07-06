@@ -20,7 +20,7 @@
  *
  */
 #pragma once
-
+#include "CustomConfig.h"
 /**
  * Configuration.h
  *
@@ -36,7 +36,7 @@
  * Advanced settings can be found in Configuration_adv.h
  *
  */
-#define CONFIGURATION_H_VERSION 020024
+#define CONFIGURATION_H_VERSION CUSTOM_CONFIG_H_VERSION
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -121,7 +121,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 115200
+#define BAUDRATE C_BAUDRATE
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -132,7 +132,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "BeepBoop"
+#define CUSTOM_MACHINE_NAME C_MACHINE_NAME
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like http://www.uuidgenerator.net/version4
@@ -145,7 +145,7 @@
 #define EXTRUDERS 1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
-#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
+#define DEFAULT_NOMINAL_FILAMENT_DIA C_FILAMENT_DIA
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 //#define SINGLENOZZLE
@@ -460,15 +460,15 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 305
-#define HEATER_1_MAXTEMP 305
-#define HEATER_2_MAXTEMP 305
-#define HEATER_3_MAXTEMP 305
-#define HEATER_4_MAXTEMP 305
-#define HEATER_5_MAXTEMP 305
-#define HEATER_6_MAXTEMP 305
-#define HEATER_7_MAXTEMP 305
-#define BED_MAXTEMP      130
+#define HEATER_0_MAXTEMP C_HEATER_MAXTEMP
+#define HEATER_1_MAXTEMP C_HEATER_MAXTEMP
+#define HEATER_2_MAXTEMP C_HEATER_MAXTEMP
+#define HEATER_3_MAXTEMP C_HEATER_MAXTEMP
+#define HEATER_4_MAXTEMP C_HEATER_MAXTEMP
+#define HEATER_5_MAXTEMP C_HEATER_MAXTEMP
+#define HEATER_6_MAXTEMP C_HEATER_MAXTEMP
+#define HEATER_7_MAXTEMP C_HEATER_MAXTEMP
+#define BED_MAXTEMP      C_BED_MAXTEMP
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -490,9 +490,9 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // Ender 3
-    #define DEFAULT_Kp 22.69
-    #define DEFAULT_Ki 2.01
-    #define DEFAULT_Kd 64.13
+    #define DEFAULT_Kp C_DEFAULT_Kp
+    #define DEFAULT_Ki C_DEFAULT_Ki
+    #define DEFAULT_Kd C_DEFAULT_Kd
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -540,9 +540,9 @@
   //#define PID_BED_DEBUG // Sends debug data to thM304 De serial port.
 
   // ender 3
-  #define DEFAULT_bedKp 126.63
-  #define DEFAULT_bedKi 23.57
-  #define DEFAULT_bedKd 453.64
+  #define DEFAULT_bedKp C_DEFAULT_bedKp
+  #define DEFAULT_bedKi C_DEFAULT_bedKi
+  #define DEFAULT_bedKd C_DEFAULT_bedKd
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -557,7 +557,7 @@
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 20 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE C_PID_FUNCTIONAL_RANGE // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 #endif
 
@@ -743,16 +743,16 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 104 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   C_DEFAULT_AXIS_STEPS_PER_UNIT
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 1000, 1000, 30, 100 }
+#define DEFAULT_MAX_FEEDRATE          C_DEFAULT_MAX_FEEDRATE
 
-//#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
+#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
   #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
 #endif
@@ -763,7 +763,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 12000, 12000, 1200, 7500 }
+#define DEFAULT_MAX_ACCELERATION      C_DEFAULT_MAX_ACCELERATION
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -778,9 +778,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          540   // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  540    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   600    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          C_DEFAULT_ACCELERATION           // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_RETRACT_ACCELERATION    // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_TRAVEL_ACCELERATION     // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -804,7 +804,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    5.0  // May be used by Linear Advance
+#define DEFAULT_EJERK C_DEFAULT_EJERK  // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -814,7 +814,7 @@
  *   http://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.12 // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM C_JUNCTION_DEVIATION_MM // (mm) Distance from real junction edge
   #define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                       // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
@@ -979,14 +979,14 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET {-43,-6, -2.355 }
+#define NOZZLE_TO_PROBE_OFFSET C_NOZZLE_TO_PROBE_OFFSET
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10
+#define PROBING_MARGIN C_PROBING_MARGIN
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 8000
+#define XY_PROBE_SPEED C_XY_PROBE_SPEED
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
@@ -1097,7 +1097,7 @@
 
 // @section homing
 
-//#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
+#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
 
 //#define UNKNOWN_Z_NO_RAISE      // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
@@ -1115,8 +1115,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 235
-#define Y_BED_SIZE 235
+#define X_BED_SIZE C_BED_SIZE_XY
+#define Y_BED_SIZE C_BED_SIZE_XY
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1124,7 +1124,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 250
+#define Z_MAX_POS C_Z_MAX_POS
 
 /**
  * Software Endstops
@@ -1261,12 +1261,12 @@
    */
   #define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
-    #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
-    #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for the G26 Mesh Validation Tool.
-    #define MESH_TEST_HOTEND_TEMP  265    // (°C) Default nozzle temperature for the G26 Mesh Validation Tool.
-    #define MESH_TEST_BED_TEMP      90    // (°C) Default bed temperature for the G26 Mesh Validation Tool.
-    #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for XY Moves for the G26 Mesh Validation Tool.
-    #define G26_RETRACT_MULTIPLIER   1.0  // G26 Q (retraction) used by default between mesh test elements.
+    #define MESH_TEST_NOZZLE_SIZE    C_MESH_TEST_NOZZLE_SIZE  // (mm) Diameter of primary nozzle.
+    #define MESH_TEST_LAYER_HEIGHT   C_MESH_TEST_LAYER_HEIGHT  // (mm) Default layer height for the G26 Mesh Validation Tool.
+    #define MESH_TEST_HOTEND_TEMP  C_MESH_TEST_HOTEND_TEMP    // (°C) Default nozzle temperature for the G26 Mesh Validation Tool.
+    #define MESH_TEST_BED_TEMP      C_MESH_TEST_BED_TEMP    // (°C) Default bed temperature for the G26 Mesh Validation Tool.
+    #define G26_XY_FEEDRATE         C_G26_XY_FEEDRATE    // (mm/s) Feedrate for XY Moves for the G26 Mesh Validation Tool.
+    #define G26_RETRACT_MULTIPLIER   C_G26_RETRACT_MULTIPLIER  // G26 Q (retraction) used by default between mesh test elements.
   #endif
 
 #endif
@@ -1306,8 +1306,8 @@
 
   #define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 35              // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 4     // Don't use more than 15 points per axis, implementation limited.
+  #define MESH_INSET C_MESH_INSET              // Set Mesh bounds as an inset region of the bed
+  #define GRID_MAX_POINTS_X C_GRID_POINTS_XY     // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
@@ -1381,13 +1381,13 @@
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing when homing all axes (G28).
-  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_X_POINT C_XY_CENTER  // X point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_Y_POINT C_XY_CENTER  // Y point for Z homing when homing all axes (G28).
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z   (4*60)
+#define HOMING_FEEDRATE_XY C_HOMING_FEEDRATE_XY
+#define HOMING_FEEDRATE_Z   C_HOMING_FEEDRATE_Z
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS

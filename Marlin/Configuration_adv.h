@@ -20,7 +20,7 @@
  *
  */
 #pragma once
-
+#include "CustomConfig.h"
 /**
  * Configuration_adv.h
  *
@@ -31,7 +31,7 @@
  * Basic settings can be found in Configuration.h
  *
  */
-#define CONFIGURATION_ADV_H_VERSION 020024
+#define CONFIGURATION_ADV_H_VERSION CUSTOM_CONFIG_H_VERSION
 
 // @section temperature
 
@@ -1596,7 +1596,7 @@
 #define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
-  #define LIN_ADVANCE_K 0.43    // Unit: mm compression per 1mm/s extruder speed
+  #define LIN_ADVANCE_K C_LIN_ADVANCE_K    // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
   #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
 #endif
@@ -1787,8 +1787,8 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MINIMUM_STEPPER_POST_DIR_DELAY 60
-#define MINIMUM_STEPPER_PRE_DIR_DELAY 60
+#define MINIMUM_STEPPER_POST_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
+#define MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
 
 /**
  * Minimum stepper driver pulse width (in µs)
@@ -1801,7 +1801,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MINIMUM_STEPPER_PULSE 1
+#define MINIMUM_STEPPER_PULSE CUSTOM_MINIMUM_STEPPER_PULSE
 
 /**
  * Maximum stepping rate (in Hz) the stepper driver allows
@@ -1815,7 +1815,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MAXIMUM_STEPPER_RATE 5000000
+#define MAXIMUM_STEPPER_RATE CUSTOM_MAXIMUM_STEPPER_RATE
 
 // @section temperature
 
@@ -1831,18 +1831,18 @@
 // The number of lineear moves that can be in the planner at once.
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g. 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
-  #define BLOCK_BUFFER_SIZE  64
+  #define BLOCK_BUFFER_SIZE CUSTOM_BLOCK_BUFFER_SIZE
 #elif ENABLED(SDSUPPORT)
-  #define BLOCK_BUFFER_SIZE 64
+  #define BLOCK_BUFFER_SIZE CUSTOM_BLOCK_BUFFER_SIZE
 #else
-  #define BLOCK_BUFFER_SIZE 64
+  #define BLOCK_BUFFER_SIZE CUSTOM_BLOCK_BUFFER_SIZE
 #endif
 
 // @section serial
 
 // The ASCII buffer for serial input
-#define MAX_CMD_SIZE 96
-#define BUFSIZE 64
+#define MAX_CMD_SIZE CUSTOM_MAX_CMD_SIZE
+#define BUFSIZE CUSTOM_BUFFER_SIZE
 
 // Transmission to Host Buffer Size
 // To save 386 bytes of PROGMEM (and TX_BUFFER_SIZE+3 bytes of RAM) set to 0.
@@ -1851,7 +1851,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#define TX_BUFFER_SIZE 64
+#define TX_BUFFER_SIZE CUSTOM_BUFFER_SIZE
 
 // Host Receive Buffer Size
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
@@ -1902,7 +1902,7 @@
 #define SERIAL_OVERRUN_PROTECTION
 
 // For serial echo, the number of digits after the decimal point
-//#define SERIAL_FLOAT_PRECISION 4
+#define SERIAL_FLOAT_PRECISION CUSTOM_FLOAT_PRECISION
 
 // @section extras
 
@@ -2203,127 +2203,127 @@
  */
 #if HAS_TRINAMIC_CONFIG
 
-  #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
-  #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
+  #define HOLD_MULTIPLIER    C_TMC_HOLD_MULTIPLIER  // Scales down the holding current from run current
+  #define INTERPOLATE       C_TMC_INTERPOLATE  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       580        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       C_TMC_XYZ_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
-    #define X_MICROSTEPS     16    // 0..256
-    #define X_RSENSE          0.11
-    #define X_CHAIN_POS      -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
+    #define X_MICROSTEPS     C_TMC_MICROSTEPS    // 0..256
+    #define X_RSENSE          C_TMC_RSENSE
+    #define X_CHAIN_POS      C_TMC_CHAIN_POS    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
   #endif
 
   #if AXIS_IS_TMC(X2)
-    #define X2_CURRENT      580
+    #define X2_CURRENT      C_TMC_XYZ_CURRENT
     #define X2_CURRENT_HOME X2_CURRENT
-    #define X2_MICROSTEPS    16
-    #define X2_RSENSE         0.11
-    #define X2_CHAIN_POS     -1
+    #define X2_MICROSTEPS    C_TMC_MICROSTEPS
+    #define X2_RSENSE         C_TMC_RSENSE
+    #define X2_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       580
+    #define Y_CURRENT       C_TMC_XYZ_CURRENT
     #define Y_CURRENT_HOME  Y_CURRENT
-    #define Y_MICROSTEPS     16
-    #define Y_RSENSE          0.11
-    #define Y_CHAIN_POS      -1
+    #define Y_MICROSTEPS     C_TMC_MICROSTEPS
+    #define Y_RSENSE          C_TMC_RSENSE
+    #define Y_CHAIN_POS      C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(Y2)
-    #define Y2_CURRENT      580
+    #define Y2_CURRENT      C_TMC_XYZ_CURRENT
     #define Y2_CURRENT_HOME Y2_CURRENT
-    #define Y2_MICROSTEPS    16
-    #define Y2_RSENSE         0.11
-    #define Y2_CHAIN_POS     -1
+    #define Y2_MICROSTEPS    C_TMC_MICROSTEPS
+    #define Y2_RSENSE         C_TMC_RSENSE
+    #define Y2_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       580
+    #define Z_CURRENT       C_TMC_XYZ_CURRENT
     #define Z_CURRENT_HOME  Z_CURRENT
-    #define Z_MICROSTEPS     16
-    #define Z_RSENSE          0.11
-    #define Z_CHAIN_POS      -1
+    #define Z_MICROSTEPS     C_TMC_MICROSTEPS
+    #define Z_RSENSE          C_TMC_RSENSE
+    #define Z_CHAIN_POS      C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(Z2)
-    #define Z2_CURRENT      580
+    #define Z2_CURRENT      C_TMC_XYZ_CURRENT
     #define Z2_CURRENT_HOME Z2_CURRENT
-    #define Z2_MICROSTEPS    16
-    #define Z2_RSENSE         0.11
-    #define Z2_CHAIN_POS     -1
+    #define Z2_MICROSTEPS    C_TMC_MICROSTEPS
+    #define Z2_RSENSE         C_TMC_RSENSE
+    #define Z2_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(Z3)
-    #define Z3_CURRENT      580
+    #define Z3_CURRENT      C_TMC_XYZ_CURRENT
     #define Z3_CURRENT_HOME Z3_CURRENT
-    #define Z3_MICROSTEPS    16
-    #define Z3_RSENSE         0.11
-    #define Z3_CHAIN_POS     -1
+    #define Z3_MICROSTEPS    C_TMC_MICROSTEPS
+    #define Z3_RSENSE         C_TMC_RSENSE
+    #define Z3_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(Z4)
-    #define Z4_CURRENT      580
+    #define Z4_CURRENT      C_TMC_XYZ_CURRENT
     #define Z4_CURRENT_HOME Z4_CURRENT
-    #define Z4_MICROSTEPS    16
-    #define Z4_RSENSE         0.11
-    #define Z4_CHAIN_POS     -1
+    #define Z4_MICROSTEPS    C_TMC_MICROSTEPS
+    #define Z4_RSENSE         C_TMC_RSENSE
+    #define Z4_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      650
-    #define E0_MICROSTEPS    16
-    #define E0_RSENSE         0.11
-    #define E0_CHAIN_POS     -1
+    #define E0_CURRENT      C_TMC_E_CURRENT
+    #define E0_MICROSTEPS    C_TMC_MICROSTEPS
+    #define E0_RSENSE         C_TMC_RSENSE
+    #define E0_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(E1)
-    #define E1_CURRENT      650
-    #define E1_MICROSTEPS    16
-    #define E1_RSENSE         0.11
-    #define E1_CHAIN_POS     -1
+    #define E1_CURRENT      C_TMC_E_CURRENT
+    #define E1_MICROSTEPS    C_TMC_MICROSTEPS
+    #define E1_RSENSE         C_TMC_RSENSE
+    #define E1_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(E2)
-    #define E2_CURRENT      650
-    #define E2_MICROSTEPS    16
-    #define E2_RSENSE         0.11
-    #define E2_CHAIN_POS     -1
+    #define E2_CURRENT      C_TMC_E_CURRENT
+    #define E2_MICROSTEPS    C_TMC_MICROSTEPS
+    #define E2_RSENSE         C_TMC_RSENSE
+    #define E2_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(E3)
-    #define E3_CURRENT      650
-    #define E3_MICROSTEPS    16
-    #define E3_RSENSE         0.11
-    #define E3_CHAIN_POS     -1
+    #define E3_CURRENT      C_TMC_E_CURRENT
+    #define E3_MICROSTEPS    C_TMC_MICROSTEPS
+    #define E3_RSENSE         C_TMC_RSENSE
+    #define E3_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(E4)
-    #define E4_CURRENT      650
-    #define E4_MICROSTEPS    16
-    #define E4_RSENSE         0.11
-    #define E4_CHAIN_POS     -1
+    #define E4_CURRENT      C_TMC_E_CURRENT
+    #define E4_MICROSTEPS    C_TMC_MICROSTEPS
+    #define E4_RSENSE         C_TMC_RSENSE
+    #define E4_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(E5)
-    #define E5_CURRENT      650
-    #define E5_MICROSTEPS    16
-    #define E5_RSENSE         0.11
-    #define E5_CHAIN_POS     -1
+    #define E5_CURRENT      C_TMC_E_CURRENT
+    #define E5_MICROSTEPS    C_TMC_MICROSTEPS
+    #define E5_RSENSE         C_TMC_RSENSE
+    #define E5_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(E6)
-    #define E6_CURRENT      650
-    #define E6_MICROSTEPS    16
-    #define E6_RSENSE         0.11
-    #define E6_CHAIN_POS     -1
+    #define E6_CURRENT      C_TMC_E_CURRENT
+    #define E6_MICROSTEPS    C_TMC_MICROSTEPS
+    #define E6_RSENSE         C_TMC_RSENSE
+    #define E6_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   #if AXIS_IS_TMC(E7)
-    #define E7_CURRENT      650
-    #define E7_MICROSTEPS    16
-    #define E7_RSENSE         0.11
-    #define E7_CHAIN_POS     -1
+    #define E7_CURRENT      C_TMC_E_CURRENT
+    #define E7_MICROSTEPS    C_TMC_MICROSTEPS
+    #define E7_RSENSE         C_TMC_RSENSE
+    #define E7_CHAIN_POS     C_TMC_CHAIN_POS
   #endif
 
   /**
@@ -2446,22 +2446,22 @@
    */
   //#define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     100  // [mm/s]
-  #define X2_HYBRID_THRESHOLD    100
-  #define Y_HYBRID_THRESHOLD     100
-  #define Y2_HYBRID_THRESHOLD    100
-  #define Z_HYBRID_THRESHOLD       3
-  #define Z2_HYBRID_THRESHOLD      3
-  #define Z3_HYBRID_THRESHOLD      3
-  #define Z4_HYBRID_THRESHOLD      3
-  #define E0_HYBRID_THRESHOLD     30
-  #define E1_HYBRID_THRESHOLD     30
-  #define E2_HYBRID_THRESHOLD     30
-  #define E3_HYBRID_THRESHOLD     30
-  #define E4_HYBRID_THRESHOLD     30
-  #define E5_HYBRID_THRESHOLD     30
-  #define E6_HYBRID_THRESHOLD     30
-  #define E7_HYBRID_THRESHOLD     30
+  #define X_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_XY  // [mm/s]
+  #define X2_HYBRID_THRESHOLD    C_TMC_HYBRID_THRESHOLD_XY
+  #define Y_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_XY
+  #define Y2_HYBRID_THRESHOLD    C_TMC_HYBRID_THRESHOLD_XY
+  #define Z_HYBRID_THRESHOLD       C_TMC_HYBRID_THRESHOLD_Z
+  #define Z2_HYBRID_THRESHOLD      C_TMC_HYBRID_THRESHOLD_Z
+  #define Z3_HYBRID_THRESHOLD      C_TMC_HYBRID_THRESHOLD_Z
+  #define Z4_HYBRID_THRESHOLD      C_TMC_HYBRID_THRESHOLD_Z
+  #define E0_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_E
+  #define E1_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_E
+  #define E2_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_E
+  #define E3_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_E
+  #define E4_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_E
+  #define E5_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_E
+  #define E6_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_E
+  #define E7_HYBRID_THRESHOLD     C_TMC_HYBRID_THRESHOLD_E
 
   /**
    * Use StallGuard2 to home / probe X, Y, Z.
@@ -2490,10 +2490,15 @@
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  8
-    #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  8
-    #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
+    #ifdef C_SENSORLESS_XY_MIN_STALL
+      #define X_STALL_SENSITIVITY  C_TMC_STAL_SENSITIVITY_X
+      #define Y_STALL_SENSITIVITY  C_TMC_STAL_SENSITIVITY_Y
+
+    #endif
+    #ifdef C_SENSORLESS_XY_MAX_STALL
+      #define X2_STALL_SENSITIVITY C_TMC_STAL_SENSITIVITY_X2
+      #define Y2_STALL_SENSITIVITY C_TMC_STAL_SENSITIVITY_Y2
+    #endif
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
