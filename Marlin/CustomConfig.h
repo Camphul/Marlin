@@ -2,13 +2,13 @@
 // Created by luca on 7/6/20.
 //
 #pragma once
-#define CUSTOM_CONFIG_H_VERSION 020024
 
 //===========================================================================
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define C_MACHINE_NAME "BeepBoop"
+#define CUSTOM_CONFIG_H_VERSION 020028
+#define C_MACHINE_NAME "Luca Ender 3"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
 #define C_BAUDRATE 115200
@@ -38,7 +38,7 @@
 #define CUSTOM_BUFFER_SIZE 64
 #define CUSTOM_BLOCK_BUFFER_SIZE CUSTOM_BUFFER_SIZE
 #define CUSTOM_MAX_CMD_SIZE 96
-#define CUSTOM_FLOAT_PRECISION 5
+#define CUSTOM_FLOAT_PRECISION 6
 
 //===========================================================================
 //======================== TRINAMIC DRIVERS =================================
@@ -77,10 +77,10 @@
 #define C_TMC_HYBRID_THRESHOLD_Z 200
 #define C_TMC_HYBRID_THRESHOLD_E 30
 
-#define C_TMC_STAL_SENSITIVITY_X 120
-#define C_TMC_STAL_SENSITIVITY_X2 C_TMC_STAL_SENSITIVITY_X
-#define C_TMC_STAL_SENSITIVITY_Y 120
-#define C_TMC_STAL_SENSITIVITY_Y2 C_TMC_STAL_SENSITIVITY_Y
+#define C_TMC_STALL_SENSITIVITY_X 120
+#define C_TMC_STALL_SENSITIVITY_X2 C_TMC_STALL_SENSITIVITY_X
+#define C_TMC_STALL_SENSITIVITY_Y 120
+#define C_TMC_STALL_SENSITIVITY_Y2 C_TMC_STALL_SENSITIVITY_Y
 
 
 //===========================================================================
@@ -88,12 +88,12 @@
 //===========================================================================
 
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
-#define C_DEFAULT_MAX_FEEDRATE          { 1000, 1000, 30, 100 }
+#define C_DEFAULT_MAX_FEEDRATE          { 1000, 1000, 40, 100 }
 #define C_DEFAULT_MAX_ACCELERATION      { 12000, 12000, 1200, 7500 }
 
-#define C_DEFAULT_ACCELERATION          540   // X, Y, Z and E acceleration for printing moves
+#define C_DEFAULT_ACCELERATION          600   // X, Y, Z and E acceleration for printing moves
 #define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
-#define C_DEFAULT_TRAVEL_ACCELERATION   600    // X, Y, Z acceleration for travel (non printing) moves
+#define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
 #define C_DEFAULT_EJERK    5.0  // May be used by Linear Advance
 
 //===========================================================================
@@ -102,7 +102,7 @@
 // jd nozzle diameter
 #define C_JD_NOZZLE_DIA C_NOZZLE_DIAMETER
 //wanted jerk
-#define C_JD_JERK 9.0
+#define C_JD_JERK 10.0
 // JD acceleration to the power of two
 #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
 #define C_JD_FORMULA (C_JD_NOZZLE_DIA * C_JD_JERK_SQUARED / C_DEFAULT_ACCELERATION)
@@ -153,10 +153,14 @@
 
 
 #define C_HOMING_FEEDRATE_XY (50*60)
-#define C_HOMING_FEEDRATE_Z   (4*60)
-#define C_NOZZLE_TO_PROBE_OFFSET {-43,-6, -2.355 }
+#define C_HOMING_FEEDRATE_Z (4*60)
+//old was -2.355
+#define C_NOZZLE_TO_PROBE_OFFSET_X -43
+#define C_NOZZLE_TO_PROBE_OFFSET_Y -6
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.53
+#define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 10
-#define C_XY_PROBE_SPEED 10000
+#define C_XY_PROBE_SPEED 6000
 
 //===========================================================================
 //================================= BED SIZE ================================
@@ -172,8 +176,8 @@
 //======================== UNIFIED BED LEVEL ================================
 //===========================================================================
 
-#define C_GRID_POINTS_XY 4
-#define C_MESH_INSET 35
+#define C_GRID_POINTS_XY 3
+#define C_MESH_INSET 10
 
 //===========================================================================
 //======================== G26 MESH LEVELING ================================
@@ -192,7 +196,7 @@
 
 #if C_MESH_TEST_POLYMAX_PC
     #define C_MESH_TEST_HOTEND_TEMP  265
-    #define C_MESH_TEST_BED_TEMP      90
+    #define C_MESH_TEST_BED_TEMP     100
 #elif C_MESH_TEST_PETG
     #define C_MESH_TEST_HOTEND_TEMP  240
     #define C_MESH_TEST_BED_TEMP      70
@@ -201,10 +205,12 @@
     #define C_MESH_TEST_BED_TEMP      45
 #endif
 
+//if still not defined
 #ifndef C_MESH_TEST_HOTEND_TEMP
     #define C_MESH_TEST_HOTEND_TEMP C_DEFAULT_MESH_TEST_HOTEND_TEMP
 #endif
 
+//if still not defined
 #ifndef C_MESH_TEST_BED_TEMP
     #define C_MESH_TEST_BED_TEMP C_DEFAULT_MESH_TEST_BED_TEMP
 #endif

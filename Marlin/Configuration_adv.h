@@ -702,7 +702,7 @@
   //#define BLTOUCH_HS_MODE
 
   // Safety: Enable voltage mode settings in the LCD menu.
-  #define BLTOUCH_LCD_VOLTAGE_MENU
+  //#define BLTOUCH_LCD_VOLTAGE_MENU
 
 #endif // BLTOUCH
 
@@ -1560,14 +1560,14 @@
   #if ENABLED(DOUBLECLICK_FOR_Z_BABYSTEPPING)
     #define DOUBLECLICK_MAX_INTERVAL 1250   // Maximum interval between clicks, in milliseconds.
                                             // Note: Extra time may be added to mitigate controller latency.
-    //#define BABYSTEP_ALWAYS_AVAILABLE     // Allow babystepping at all times (not just during movement).
+    #define BABYSTEP_ALWAYS_AVAILABLE     // Allow babystepping at all times (not just during movement).
     //#define MOVE_Z_WHEN_IDLE              // Jump to the move Z menu on doubleclick when printer is idle.
     #if ENABLED(MOVE_Z_WHEN_IDLE)
       #define MOVE_Z_IDLE_MULTIPLICATOR 1   // Multiply 1mm by this factor for the move step size.
     #endif
   #endif
 
-  //#define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
+  #define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
 
   #define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
   #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
@@ -1636,18 +1636,18 @@
  * the probe to be unable to reach any points.
  */
 #if PROBE_SELECTED && !IS_KINEMATIC
-  //#define PROBING_MARGIN_LEFT PROBING_MARGIN
-  //#define PROBING_MARGIN_RIGHT PROBING_MARGIN
-  //#define PROBING_MARGIN_FRONT PROBING_MARGIN
-  //#define PROBING_MARGIN_BACK PROBING_MARGIN
+  #define PROBING_MARGIN_LEFT (PROBING_MARGIN - C_NOZZLE_TO_PROBE_OFFSET_X)
+  #define PROBING_MARGIN_RIGHT (PROBING_MARGIN - C_NOZZLE_TO_PROBE_OFFSET_X)
+  #define PROBING_MARGIN_FRONT (PROBING_MARGIN - C_NOZZLE_TO_PROBE_OFFSET_Y)
+  #define PROBING_MARGIN_BACK (PROBING_MARGIN - C_NOZZLE_TO_PROBE_OFFSET_Y)
 #endif
 
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
   // Override the mesh area if the automatic (max) area is too large
-  //#define MESH_MIN_X MESH_INSET
-  //#define MESH_MIN_Y MESH_INSET
-  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
-  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
+  #define MESH_MIN_X PROBING_MARGIN_LEFT
+  #define MESH_MIN_Y PROBING_MARGIN_FRONT
+  #define MESH_MAX_X (C_X_BED_SIZE - PROBING_MARGIN_RIGHT)
+  #define MESH_MAX_Y (C_Y_BED_SIZE - PROBING_MARGIN_BACK)
 #endif
 
 /**
@@ -1746,7 +1746,7 @@
 #endif
 
 // Support for G5 with XYZE destination and IJPQ offsets. Requires ~2666 bytes.
-//#define BEZIER_CURVE_SUPPORT
+#define BEZIER_CURVE_SUPPORT
 
 /**
  * Direct Stepping
@@ -2490,10 +2490,10 @@
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  C_TMC_STAL_SENSITIVITY_X
-    #define X2_STALL_SENSITIVITY C_TMC_STAL_SENSITIVITY_X2
-    #define Y2_STALL_SENSITIVITY C_TMC_STAL_SENSITIVITY_Y2
-    #define Y_STALL_SENSITIVITY  C_TMC_STAL_SENSITIVITY_Y
+    //#define X_STALL_SENSITIVITY  C_TMC_STALL_SENSITIVITY_X
+    #define X2_STALL_SENSITIVITY C_TMC_STALL_SENSITIVITY_X2
+    //#define Y_STALL_SENSITIVITY  C_TMC_STALL_SENSITIVITY_Y
+    #define Y2_STALL_SENSITIVITY C_TMC_STALL_SENSITIVITY_Y2
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
@@ -3142,7 +3142,7 @@
  *
  * Execute certain G-code commands immediately after power-on.
  */
-//#define STARTUP_COMMANDS "M569 S0 X Y Z E"
+#define STARTUP_COMMANDS "M569 S0 X Y Z E"
 
 /**
  * G-code Macros
