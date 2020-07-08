@@ -7,7 +7,7 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020028
+#define CUSTOM_CONFIG_H_VERSION 020029
 #define C_MACHINE_NAME "Luca Ender 3"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
@@ -153,14 +153,15 @@
 
 
 #define C_HOMING_FEEDRATE_XY (50*60)
-#define C_HOMING_FEEDRATE_Z (4*60)
+#define C_HOMING_FEEDRATE_Z (6*60)
 //old was -2.355
 #define C_NOZZLE_TO_PROBE_OFFSET_X -43
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
-#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.53
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.63
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
-#define C_PROBING_MARGIN 10
-#define C_XY_PROBE_SPEED 6000
+#define C_PROBING_MARGIN 5
+#define C_XY_PROBE_SPEED 8000
+#define C_Z_PROBE_SPEED_FAST C_HOMING_FEEDRATE_Z
 
 //===========================================================================
 //================================= BED SIZE ================================
@@ -177,7 +178,7 @@
 //===========================================================================
 
 #define C_GRID_POINTS_XY 3
-#define C_MESH_INSET 10
+#define C_MESH_INSET 5
 
 //===========================================================================
 //======================== G26 MESH LEVELING ================================
