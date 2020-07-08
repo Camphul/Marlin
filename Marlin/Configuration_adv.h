@@ -3142,7 +3142,7 @@
  *
  * Execute certain G-code commands immediately after power-on.
  */
-#define STARTUP_COMMANDS "M569 S0 X Y Z E"
+//#define STARTUP_COMMANDS "M569 S0 X Y Z E"
 
 /**
  * G-code Macros
