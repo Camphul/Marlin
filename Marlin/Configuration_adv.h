@@ -829,7 +829,7 @@
 // Increase the slowdown divisor for larger buffer sizes.
 #define SLOWDOWN
 #if ENABLED(SLOWDOWN)
-  #define SLOWDOWN_DIVISOR 2
+  #define SLOWDOWN_DIVISOR 8
 #endif
 
 /**
@@ -838,7 +838,7 @@
  * See http://hydraraptor.blogspot.com/2010/12/frequency-limit.html
  * Use M201 F<freq> G<min%> to change limits at runtime.
  */
-#define XY_FREQUENCY_LIMIT      10 // (Hz) Maximum frequency of small zigzag infill moves. Set with M201 F<hertz>.
+//#define XY_FREQUENCY_LIMIT      10 // (Hz) Maximum frequency of small zigzag infill moves. Set with M201 F<hertz>.
 #ifdef XY_FREQUENCY_LIMIT
   #define XY_FREQUENCY_MIN_PERCENT 5 // (percent) Minimum FR percentage to apply. Set with M201 G<min%>.
 #endif
@@ -1015,7 +1015,7 @@
 // @section lcd
 
 #if EITHER(ULTIPANEL, EXTENSIBLE_UI)
-  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 60 } // Feedrates for manual moves along X, Y, Z, E from panel
+  #define MANUAL_FEEDRATE C_MANUAL_FEEDRATE // Feedrates for manual moves along X, Y, Z, E from panel
   #define SHORT_MANUAL_Z_MOVE 0.025 // (mm) Smallest manual Z move (< 0.1mm)
   #if ENABLED(ULTIPANEL)
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
@@ -1087,11 +1087,11 @@
 #endif
 
 #if HAS_GRAPHICAL_LCD && EITHER(SDSUPPORT, LCD_SET_PROGRESS_MANUALLY)
-  //#define PRINT_PROGRESS_SHOW_DECIMALS // Show progress with decimal digits
+  #define PRINT_PROGRESS_SHOW_DECIMALS // Show progress with decimal digits
   #define SHOW_REMAINING_TIME          // Display estimated time to completion
   #if ENABLED(SHOW_REMAINING_TIME)
     #define USE_M73_REMAINING_TIME     // Use remaining time from M73 command instead of estimation
-    //#define ROTATE_PROGRESS_DISPLAY    // Display (P)rogress, (E)lapsed, and (R)emaining time
+    #define ROTATE_PROGRESS_DISPLAY    // Display (P)rogress, (E)lapsed, and (R)emaining time
   #endif
 #endif
 
@@ -1551,16 +1551,16 @@
 #if ENABLED(BABYSTEPPING)
   //#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
   //#define BABYSTEP_WITHOUT_HOMING
-  #define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
+  //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
   #define BABYSTEP_INVERT_Z false           // Change if Z babysteps should go the other way
   #define BABYSTEP_MULTIPLICATOR_Z  4       // Babysteps are very small. Increase for faster motion.
-  #define BABYSTEP_MULTIPLICATOR_XY 4
+  #define BABYSTEP_MULTIPLICATOR_XY 1
 
   #define DOUBLECLICK_FOR_Z_BABYSTEPPING  // Double-click on the Status Screen for Z Babystepping.
   #if ENABLED(DOUBLECLICK_FOR_Z_BABYSTEPPING)
     #define DOUBLECLICK_MAX_INTERVAL 1250   // Maximum interval between clicks, in milliseconds.
                                             // Note: Extra time may be added to mitigate controller latency.
-    #define BABYSTEP_ALWAYS_AVAILABLE     // Allow babystepping at all times (not just during movement).
+    //#define BABYSTEP_ALWAYS_AVAILABLE     // Allow babystepping at all times (not just during movement).
     //#define MOVE_Z_WHEN_IDLE              // Jump to the move Z menu on doubleclick when printer is idle.
     #if ENABLED(MOVE_Z_WHEN_IDLE)
       #define MOVE_Z_IDLE_MULTIPLICATOR 1   // Multiply 1mm by this factor for the move step size.
@@ -1636,18 +1636,43 @@
  * the probe to be unable to reach any points.
  */
 #if PROBE_SELECTED && !IS_KINEMATIC
-  #define PROBING_MARGIN_LEFT  (C_PROBING_MARGIN - C_NOZZLE_TO_PROBE_OFFSET_X)
-  #define PROBING_MARGIN_RIGHT (C_PROBING_MARGIN - C_NOZZLE_TO_PROBE_OFFSET_X)
-  #define PROBING_MARGIN_FRONT (C_PROBING_MARGIN - C_NOZZLE_TO_PROBE_OFFSET_Y)
-  #define PROBING_MARGIN_BACK  (C_PROBING_MARGIN - C_NOZZLE_TO_PROBE_OFFSET_Y)
+  //#define PROBING_MARGIN_LEFT  C_PROBING_MARGIN + abs(C_NOZZLE_TO_PROBE_OFFSET_X)
+  //#define PROBING_MARGIN_RIGHT (C_PROBING_MARGIN + abs(C_NOZZLE_TO_PROBE_OFFSET_X))
+  //#define PROBING_MARGIN_FRONT (C_PROBING_MARGIN + abs(C_NOZZLE_TO_PROBE_OFFSET_Y))
+  //#define PROBING_MARGIN_BACK  (C_PROBING_MARGIN + abs(C_NOZZLE_TO_PROBE_OFFSET_Y))
+  //#define PROBING_MARGIN_LEFT 43
+  //#define PROBING_MARGIN_RIGHT 1
+  //#define PROBING_MARGIN_FRONT 6
+  //#define PROBING_MARGIN_BACK 6
+
+  //original settings
+  //#define PROBING_MARGIN_LEFT PROBING_MARGIN
+  //#define PROBING_MARGIN_RIGHT PROBING_MARGIN
+  //#define PROBING_MARGIN_FRONT PROBING_MARGIN
+  //#define PROBING_MARGIN_BACK PROBING_MARGIN
 #endif
 
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
   // Override the mesh area if the automatic (max) area is too large
-  #define MESH_MIN_X  (C_MESH_INSET - C_NOZZLE_TO_PROBE_OFFSET_X)
-  #define MESH_MIN_Y  (C_MESH_INSET - C_NOZZLE_TO_PROBE_OFFSET_Y)
-  #define MESH_MAX_X  (C_X_BED_SIZE - abs(C_MESH_INSET - C_NOZZLE_TO_PROBE_OFFSET_X))
-  #define MESH_MAX_Y  (C_Y_BED_SIZE - abs(C_MESH_INSET - C_NOZZLE_TO_PROBE_OFFSET_Y))
+  //#define MESH_MIN_X  (C_MESH_INSET + abs(C_NOZZLE_TO_PROBE_OFFSET_X))
+  //#define MESH_MIN_Y  (C_MESH_INSET + abs(C_NOZZLE_TO_PROBE_OFFSET_Y))
+  //#define MESH_MAX_X  (C_X_BED_SIZE - C_MESH_INSET)// - abs(C_NOZZLE_TO_PROBE_OFFSET_X))
+  //#define MESH_MAX_Y  (C_Y_BED_SIZE - C_MESH_INSET) - abs(C_NOZZLE_TO_PROBE_OFFSET_Y))
+
+  //#define MESH_MIN_X C_MESH_INSET
+  //#define MESH_MAX_X X_BED_SIZE
+  //#define MESH_MIN_Y C_MESH_INSET
+  //#define MESH_MAX_Y X_BED_SIZE
+  //  #define MESH_MIN_X (X_BED_SIZE - 1)
+  //#define MESH_MIN_Y (Y_BED_SIZE - 6)
+  //#define MESH_MAX_X 1
+  //#define MESH_MAX_Y 6
+
+  //ORIGINAL SETTINGS
+    #define MESH_MIN_X MESH_INSET
+    #define MESH_MAX_X (X_BED_SIZE - (MESH_INSET))
+    #define MESH_MIN_Y MESH_INSET
+    #define MESH_MAX_Y (Y_BED_SIZE - (MESH_INSET))
 #endif
 
 /**
@@ -1656,7 +1681,7 @@
  */
 //#define G29_RETRY_AND_RECOVER
 #if ENABLED(G29_RETRY_AND_RECOVER)
-  #define G29_MAX_RETRIES 2
+  #define G29_MAX_RETRIES 3
   #define G29_HALT_ON_FAILURE
   /**
    * Specify the GCODE commands that will be executed when leveling succeeds,
@@ -1746,7 +1771,7 @@
 #endif
 
 // Support for G5 with XYZE destination and IJPQ offsets. Requires ~2666 bytes.
-#define BEZIER_CURVE_SUPPORT
+//#define BEZIER_CURVE_SUPPORT
 
 /**
  * Direct Stepping
@@ -1787,8 +1812,8 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MINIMUM_STEPPER_POST_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
-#define MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
+//#define MINIMUM_STEPPER_POST_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
+//#define MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
 
 /**
  * Minimum stepper driver pulse width (in µs)
@@ -1801,7 +1826,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MINIMUM_STEPPER_PULSE CUSTOM_MINIMUM_STEPPER_PULSE
+//#define MINIMUM_STEPPER_PULSE CUSTOM_MINIMUM_STEPPER_PULSE
 
 /**
  * Maximum stepping rate (in Hz) the stepper driver allows
@@ -1815,7 +1840,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MAXIMUM_STEPPER_RATE CUSTOM_MAXIMUM_STEPPER_RATE
+//#define MAXIMUM_STEPPER_RATE CUSTOM_MAXIMUM_STEPPER_RATE
 
 // @section temperature
 
@@ -2030,7 +2055,7 @@
  * Requires NOZZLE_PARK_FEATURE.
  * This feature is required for the default FILAMENT_RUNOUT_SCRIPT.
  */
-#define ADVANCED_PAUSE_FEATURE
+//#define ADVANCED_PAUSE_FEATURE
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   #define PAUSE_PARK_RETRACT_FEEDRATE         25  // (mm/s) Initial retract feedrate.
   #define PAUSE_PARK_RETRACT_LENGTH            3  // (mm) Initial retract.
@@ -2537,6 +2562,7 @@
    *   stepperY.intpol(0); \
    * }
    */
+  #define TMC_ADV() {    }
 #endif // HAS_TRINAMIC_CONFIG
 
 // @section L64XX

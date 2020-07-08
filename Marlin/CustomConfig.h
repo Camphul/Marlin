@@ -7,7 +7,7 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020029
+#define CUSTOM_CONFIG_H_VERSION 020031
 #define C_MACHINE_NAME "Luca Ender 3"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
@@ -38,7 +38,7 @@
 #define CUSTOM_BUFFER_SIZE 64
 #define CUSTOM_BLOCK_BUFFER_SIZE CUSTOM_BUFFER_SIZE
 #define CUSTOM_MAX_CMD_SIZE 96
-#define CUSTOM_FLOAT_PRECISION 6
+#define CUSTOM_FLOAT_PRECISION 4
 
 //===========================================================================
 //======================== TRINAMIC DRIVERS =================================
@@ -90,8 +90,8 @@
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
 #define C_DEFAULT_MAX_FEEDRATE          { 1000, 1000, 40, 100 }
 #define C_DEFAULT_MAX_ACCELERATION      { 12000, 12000, 1200, 7500 }
-
-#define C_DEFAULT_ACCELERATION          600   // X, Y, Z and E acceleration for printing moves
+#define C_MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 60 }
+#define C_DEFAULT_ACCELERATION          540   // X, Y, Z and E acceleration for printing moves
 #define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
 #define C_DEFAULT_EJERK    5.0  // May be used by Linear Advance
@@ -102,10 +102,10 @@
 // jd nozzle diameter
 #define C_JD_NOZZLE_DIA C_NOZZLE_DIAMETER
 //wanted jerk
-#define C_JD_JERK 10.0
+#define C_JD_JERK 8.0
 // JD acceleration to the power of two
 #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
-#define C_JD_FORMULA (C_JD_NOZZLE_DIA * C_JD_JERK_SQUARED / C_DEFAULT_ACCELERATION)
+#define C_JD_FORMULA (C_JD_NOZZLE_DIA * C_JD_JERK * C_JD_JERK / C_DEFAULT_ACCELERATION)
 //Final junction deviation value
 #define C_JUNCTION_DEVIATION_MM C_JD_FORMULA
 
@@ -153,14 +153,15 @@
 
 
 #define C_HOMING_FEEDRATE_XY (50*60)
-#define C_HOMING_FEEDRATE_Z (6*60)
+#define C_HOMING_FEEDRATE_Z (4*60)
 //old was -2.355
 #define C_NOZZLE_TO_PROBE_OFFSET_X -43
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
-#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.63
+//old was -1.63
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.455
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
-#define C_PROBING_MARGIN 5
-#define C_XY_PROBE_SPEED 8000
+#define C_PROBING_MARGIN 10
+#define C_XY_PROBE_SPEED 6000
 #define C_Z_PROBE_SPEED_FAST C_HOMING_FEEDRATE_Z
 
 //===========================================================================
@@ -170,7 +171,6 @@
 #define C_X_BED_SIZE 235
 #define C_Y_BED_SIZE C_X_BED_SIZE
 #define C_BED_SIZE_XY C_Y_BED_SIZE
-#define C_Z_MAX_POS 250
 #define C_XY_CENTER (C_BED_SIZE_XY / 2)
 
 //===========================================================================
@@ -178,17 +178,17 @@
 //===========================================================================
 
 #define C_GRID_POINTS_XY 3
-#define C_MESH_INSET 5
+#define C_MESH_INSET 45
 
 //===========================================================================
 //======================== G26 MESH LEVELING ================================
 //===========================================================================
 
-#define C_MESH_TEST_POLYMAX_PC 1
-//#define C_MESH_TEST_PETG
-//#define C_MESH_TEST_PLA
+//#define C_MESH_TEST_POLYMAX_PC 1
+//#define C_MESH_TEST_PETG 1
+#define C_MESH_TEST_PLA 1
 
-#define C_MESH_TEST_NOZZLE_SIZE    0.4
+#define C_MESH_TEST_NOZZLE_SIZE    C_NOZZLE_DIAMETER
 #define C_MESH_TEST_LAYER_HEIGHT   0.2
 #define C_G26_XY_FEEDRATE         20
 #define C_G26_RETRACT_MULTIPLIER   1.0
@@ -203,7 +203,7 @@
     #define C_MESH_TEST_BED_TEMP      70
 #elif C_MESH_TEST_PLA
     #define C_MESH_TEST_HOTEND_TEMP  205
-    #define C_MESH_TEST_BED_TEMP      45
+    #define C_MESH_TEST_BED_TEMP      60
 #endif
 
 //if still not defined
