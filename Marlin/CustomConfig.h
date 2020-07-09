@@ -61,12 +61,8 @@
  * TMCStepper library is required to use TMC stepper drivers.
  * https://github.com/teemuatlut/TMCStepper
  */
-//tmc drivers should use max motor current divided by sqrt 2
-#define C_TMC_CURRENT_DIVISOR sqrt(2)
-//margin of TMC2209 current to add to motor currents
-#define C_TMC_CURRENT_MARGIN -5
-#define C_TMC_XYZ_CURRENT floor(840/C_TMC_CURRENT_DIVISOR) + C_TMC_CURRENT_MARGIN//XYZ max rating 840ma
-#define C_TMC_E_CURRENT floor(1000/C_TMC_CURRENT_DIVISOR) + C_TMC_CURRENT_MARGIN//E max rating 1000ma
+#define C_TMC_XYZ_CURRENT 590//XYZ max rating 840ma
+#define C_TMC_E_CURRENT 700//E max rating 1000ma
 #define C_TMC_MICROSTEPS 16
 #define C_TMC_INTERPOLATE true
 #define C_TMC_HOLD_MULTIPLIER 0.5
@@ -158,14 +154,14 @@
 //===========================================================================
 
 
-#define C_HOMING_FEEDRATE_XY 40000
-#define C_HOMING_FEEDRATE_Z 540
+#define C_HOMING_FEEDRATE_XY 6000
+#define C_HOMING_FEEDRATE_Z 400
 //old was -2.355
 #define C_NOZZLE_TO_PROBE_OFFSET_X -43
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
-#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.630//-1.625
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.615//-1.625
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 10
 #define C_XY_PROBE_SPEED 6000
