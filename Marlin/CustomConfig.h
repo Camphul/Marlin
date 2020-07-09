@@ -158,10 +158,11 @@
 #define C_NOZZLE_TO_PROBE_OFFSET_X -43
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
-#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.455
+//wass -1.455
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.625
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 10
-#define C_XY_PROBE_SPEED 6000
+#define C_XY_PROBE_SPEED 8000
 #define C_Z_PROBE_SPEED_FAST C_HOMING_FEEDRATE_Z
 
 //===========================================================================
@@ -177,8 +178,8 @@
 //======================== UNIFIED BED LEVEL ================================
 //===========================================================================
 
-#define C_GRID_POINTS_XY 3
-#define C_MESH_INSET 45
+#define C_GRID_POINTS_XY 5
+#define C_MESH_INSET (abs(C_NOZZLE_TO_PROBE_OFFSET_X)+1)
 
 //===========================================================================
 //======================== G26 MESH LEVELING ================================
