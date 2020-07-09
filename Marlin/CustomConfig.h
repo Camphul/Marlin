@@ -94,8 +94,8 @@
 //===========================================================================
 
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
-#define C_DEFAULT_MAX_FEEDRATE          { 4000, 4000, 600, 200 }
-#define C_DEFAULT_MAX_ACCELERATION      { 4000, 4000, 4000, 7500 }
+#define C_DEFAULT_MAX_FEEDRATE          { 4000, 4000, 30, 100 }
+#define C_DEFAULT_MAX_ACCELERATION      { 12000, 12000, 12000, 7500 }
 #define C_MANUAL_FEEDRATE { 60*60, 60*60, 6*60, 60 }
 #define C_DEFAULT_ACCELERATION          540   // X, Y, Z and E acceleration for printing moves
 #define C_DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
