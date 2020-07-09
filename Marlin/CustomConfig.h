@@ -159,11 +159,11 @@
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
-#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.625
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.625//-1.625
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 10
-#define C_XY_PROBE_SPEED 8000
-#define C_Z_PROBE_SPEED_FAST C_HOMING_FEEDRATE_Z
+#define C_XY_PROBE_SPEED 10000
+#define C_Z_PROBE_SPEED_FAST (5*60)
 
 //===========================================================================
 //================================= BED SIZE ================================
