@@ -7,7 +7,7 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020033
+#define CUSTOM_CONFIG_H_VERSION 020034
 #define C_MACHINE_NAME "Beep Boop"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
@@ -91,8 +91,8 @@
 #define C_DEFAULT_MAX_FEEDRATE          { 1000, 1000, 40, 100 }
 #define C_DEFAULT_MAX_ACCELERATION      { 12000, 12000, 1200, 7500 }
 #define C_MANUAL_FEEDRATE { 60*60, 60*60, 6*60, 60 }
-#define C_DEFAULT_ACCELERATION          600   // X, Y, Z and E acceleration for printing moves
-#define C_DEFAULT_RETRACT_ACCELERATION  480    // E acceleration for retracts
+#define C_DEFAULT_ACCELERATION          540   // X, Y, Z and E acceleration for printing moves
+#define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
 #define C_DEFAULT_EJERK    5.0  // May be used by Linear Advance
 
@@ -102,10 +102,10 @@
 // jd nozzle diameter
 #define C_JD_NOZZLE_DIA C_NOZZLE_DIAMETER
 //wanted jerk
-#define C_JD_JERK 8.0
+#define C_JD_JERK 7.0
 // JD acceleration to the power of two
 #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
-#define C_JD_FORMULA (C_JD_NOZZLE_DIA * C_JD_JERK * C_JD_JERK / C_DEFAULT_ACCELERATION)
+#define C_JD_FORMULA (C_JD_NOZZLE_DIA * ((C_JD_JERK_SQUARED) / C_DEFAULT_ACCELERATION))
 //Final junction deviation value
 #define C_JUNCTION_DEVIATION_MM C_JD_FORMULA
 
