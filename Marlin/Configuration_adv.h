@@ -657,7 +657,7 @@
 
   // Safety: The probe needs time to recognize the command.
   //         Minimum command delay (ms). Enable and increase if needed.
-  #define BLTOUCH_DELAY 500
+  #define BLTOUCH_DELAY 350
 
   /**
    * Settings for BLTOUCH Classic 1.2, 1.3 or BLTouch Smart 1.0, 2.0, 2.2, 3.0, 3.1, and most clones:
@@ -1636,16 +1636,6 @@
  * the probe to be unable to reach any points.
  */
 #if PROBE_SELECTED && !IS_KINEMATIC
-  //#define PROBING_MARGIN_LEFT  C_PROBING_MARGIN + abs(C_NOZZLE_TO_PROBE_OFFSET_X)
-  //#define PROBING_MARGIN_RIGHT (C_PROBING_MARGIN + abs(C_NOZZLE_TO_PROBE_OFFSET_X))
-  //#define PROBING_MARGIN_FRONT (C_PROBING_MARGIN + abs(C_NOZZLE_TO_PROBE_OFFSET_Y))
-  //#define PROBING_MARGIN_BACK  (C_PROBING_MARGIN + abs(C_NOZZLE_TO_PROBE_OFFSET_Y))
-  //#define PROBING_MARGIN_LEFT 43
-  //#define PROBING_MARGIN_RIGHT 1
-  //#define PROBING_MARGIN_FRONT 6
-  //#define PROBING_MARGIN_BACK 6
-
-  //original settings
   //#define PROBING_MARGIN_LEFT PROBING_MARGIN
   //#define PROBING_MARGIN_RIGHT PROBING_MARGIN
   //#define PROBING_MARGIN_FRONT PROBING_MARGIN
@@ -1653,22 +1643,6 @@
 #endif
 
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
-  // Override the mesh area if the automatic (max) area is too large
-  //#define MESH_MIN_X  (C_MESH_INSET + abs(C_NOZZLE_TO_PROBE_OFFSET_X))
-  //#define MESH_MIN_Y  (C_MESH_INSET + abs(C_NOZZLE_TO_PROBE_OFFSET_Y))
-  //#define MESH_MAX_X  (C_X_BED_SIZE - C_MESH_INSET)// - abs(C_NOZZLE_TO_PROBE_OFFSET_X))
-  //#define MESH_MAX_Y  (C_Y_BED_SIZE - C_MESH_INSET) - abs(C_NOZZLE_TO_PROBE_OFFSET_Y))
-
-  //#define MESH_MIN_X C_MESH_INSET
-  //#define MESH_MAX_X X_BED_SIZE
-  //#define MESH_MIN_Y C_MESH_INSET
-  //#define MESH_MAX_Y X_BED_SIZE
-  //  #define MESH_MIN_X (X_BED_SIZE - 1)
-  //#define MESH_MIN_Y (Y_BED_SIZE - 6)
-  //#define MESH_MAX_X 1
-  //#define MESH_MAX_Y 6
-
-  //ORIGINAL SETTINGS
     #define MESH_MIN_X MESH_INSET
     #define MESH_MAX_X (X_BED_SIZE - (MESH_INSET))
     #define MESH_MIN_Y MESH_INSET
@@ -1812,8 +1786,8 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MINIMUM_STEPPER_POST_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
-//#define MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
+#define MINIMUM_STEPPER_POST_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
+#define MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
 
 /**
  * Minimum stepper driver pulse width (in µs)
@@ -3122,8 +3096,8 @@
 //#define NO_WORKSPACE_OFFSETS
 
 // Extra options for the M114 "Current Position" report
-//#define M114_DETAIL         // Use 'M114` for details to check planner calculations
-//#define M114_REALTIME       // Real current position based on forward kinematics
+#define M114_DETAIL         // Use 'M114` for details to check planner calculations
+#define M114_REALTIME       // Real current position based on forward kinematics
 //#define M114_LEGACY         // M114 used to synchronize on every call. Enable if needed.
 
 /**

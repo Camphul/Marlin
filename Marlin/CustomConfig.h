@@ -18,13 +18,15 @@
 //===========================================================================
 
 #define LIN_ADVANCE_K_POLYMAX_PC 0.43
-#define C_LIN_ADVANCE_K LIN_ADVANCE_K_POLYMAX_PC
+#define LIN_ADVANCE_K_SET_BY_GCODE 0.0
+//Setting linear advance k to 0 allows us to set the k value via m500 in our slicer for specific materials.
+#define C_LIN_ADVANCE_K LIN_ADVANCE_K_SET_BY_GCODE
 
 //===========================================================================
 //============================ TMC2209 STEPPERS =============================
 //===========================================================================
 
-#define CUSTOM_MINIMUM_STEPPER_POST_DIR_DELAY 60
+#define CUSTOM_MINIMUM_STEPPER_POST_DIR_DELAY 120//20
 #define CUSTOM_MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_PRE_DIR_DELAY
 #define CUSTOM_MINIMUM_STEPPER_DIR_DELAY CUSTOM_MINIMUM_STEPPER_PRE_DIR_DELAY
 
@@ -59,8 +61,12 @@
  * TMCStepper library is required to use TMC stepper drivers.
  * https://github.com/teemuatlut/TMCStepper
  */
-#define C_TMC_XYZ_CURRENT 580
-#define C_TMC_E_CURRENT 660
+//tmc drivers should use max motor current divided by sqrt 2
+#define C_TMC_CURRENT_DIVISOR sqrt(2)
+//margin of TMC2209 current to add to motor currents
+#define C_TMC_CURRENT_MARGIN -5
+#define C_TMC_XYZ_CURRENT floor(840/C_TMC_CURRENT_DIVISOR) + C_TMC_CURRENT_MARGIN//XYZ max rating 840ma
+#define C_TMC_E_CURRENT floor(1000/C_TMC_CURRENT_DIVISOR) + C_TMC_CURRENT_MARGIN//E max rating 1000ma
 #define C_TMC_MICROSTEPS 16
 #define C_TMC_INTERPOLATE true
 #define C_TMC_HOLD_MULTIPLIER 0.5
@@ -73,13 +79,13 @@
    * STEALTHCHOP_(XY|Z|E) must be enabled to use HYBRID_THRESHOLD.
    * M913 X/Y/Z/E to live tune the setting
    */
-#define C_TMC_HYBRID_THRESHOLD_XY 800
-#define C_TMC_HYBRID_THRESHOLD_Z 200
-#define C_TMC_HYBRID_THRESHOLD_E 30
+#define C_TMC_HYBRID_THRESHOLD_XY 1200
+#define C_TMC_HYBRID_THRESHOLD_Z 600
+#define C_TMC_HYBRID_THRESHOLD_E 1200
 
-#define C_TMC_STALL_SENSITIVITY_X 120
+#define C_TMC_STALL_SENSITIVITY_X 8
 #define C_TMC_STALL_SENSITIVITY_X2 C_TMC_STALL_SENSITIVITY_X
-#define C_TMC_STALL_SENSITIVITY_Y 120
+#define C_TMC_STALL_SENSITIVITY_Y 8
 #define C_TMC_STALL_SENSITIVITY_Y2 C_TMC_STALL_SENSITIVITY_Y
 
 
@@ -88,13 +94,13 @@
 //===========================================================================
 
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
-#define C_DEFAULT_MAX_FEEDRATE          { 1000, 1000, 40, 100 }
-#define C_DEFAULT_MAX_ACCELERATION      { 12000, 12000, 1200, 7500 }
+#define C_DEFAULT_MAX_FEEDRATE          { 4000, 4000, 600, 200 }
+#define C_DEFAULT_MAX_ACCELERATION      { 4000, 4000, 4000, 7500 }
 #define C_MANUAL_FEEDRATE { 60*60, 60*60, 6*60, 60 }
 #define C_DEFAULT_ACCELERATION          540   // X, Y, Z and E acceleration for printing moves
-#define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
+#define C_DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
-#define C_DEFAULT_EJERK    5.0  // May be used by Linear Advance
+#define C_DEFAULT_EJERK (C_DEFAULT_ACCELERATION / 10)  // May be used by Linear Advance
 
 //===========================================================================
 //================ MOVEMENT/JUNCTION DEVIATION ==============================
@@ -105,7 +111,7 @@
 #define C_JD_JERK 7.0
 // JD acceleration to the power of two
 #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
-#define C_JD_FORMULA (C_JD_NOZZLE_DIA * ((C_JD_JERK_SQUARED) / C_DEFAULT_ACCELERATION))
+#define C_JD_FORMULA (C_JD_NOZZLE_DIA * (C_JD_JERK_SQUARED / C_DEFAULT_ACCELERATION))
 //Final junction deviation value
 #define C_JUNCTION_DEVIATION_MM C_JD_FORMULA
 
@@ -152,18 +158,19 @@
 //===========================================================================
 
 
-#define C_HOMING_FEEDRATE_XY (50*60)
-#define C_HOMING_FEEDRATE_Z (4*60)
+#define C_HOMING_FEEDRATE_XY 40000
+#define C_HOMING_FEEDRATE_Z 540
 //old was -2.355
 #define C_NOZZLE_TO_PROBE_OFFSET_X -43
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
-#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.625//-1.625
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.630//-1.625
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 10
-#define C_XY_PROBE_SPEED 10000
-#define C_Z_PROBE_SPEED_FAST (5*60)
+#define C_XY_PROBE_SPEED 6000
+#define C_Z_PROBE_SPEED_FAST C_HOMING_FEEDRATE_Z
+#define C_Z_PROBE_SPEED_SLOW_DIVISOR 3
 
 //===========================================================================
 //================================= BED SIZE ================================
