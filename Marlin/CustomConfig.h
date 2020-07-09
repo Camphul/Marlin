@@ -7,8 +7,8 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020031
-#define C_MACHINE_NAME "Luca Ender 3"
+#define CUSTOM_CONFIG_H_VERSION 020033
+#define C_MACHINE_NAME "Beep Boop"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
 #define C_BAUDRATE 115200
@@ -90,8 +90,8 @@
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
 #define C_DEFAULT_MAX_FEEDRATE          { 1000, 1000, 40, 100 }
 #define C_DEFAULT_MAX_ACCELERATION      { 12000, 12000, 1200, 7500 }
-#define C_MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 60 }
-#define C_DEFAULT_ACCELERATION          540   // X, Y, Z and E acceleration for printing moves
+#define C_MANUAL_FEEDRATE { 60*60, 60*60, 6*60, 60 }
+#define C_DEFAULT_ACCELERATION          600   // X, Y, Z and E acceleration for printing moves
 #define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
 #define C_DEFAULT_EJERK    5.0  // May be used by Linear Advance
