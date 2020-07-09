@@ -92,7 +92,7 @@
 #define C_DEFAULT_MAX_ACCELERATION      { 12000, 12000, 1200, 7500 }
 #define C_MANUAL_FEEDRATE { 60*60, 60*60, 6*60, 60 }
 #define C_DEFAULT_ACCELERATION          600   // X, Y, Z and E acceleration for printing moves
-#define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
+#define C_DEFAULT_RETRACT_ACCELERATION  420    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
 #define C_DEFAULT_EJERK    5.0  // May be used by Linear Advance
 
