@@ -21,7 +21,7 @@
 #define LIN_ADVANCE_K_REAL_PLA 0.55
 #define LIN_ADVANCE_K_SET_BY_GCODE 0.0
 //Setting linear advance k to 0 allows us to set the k value via m500 in our slicer for specific materials.
-#define C_LIN_ADVANCE_K LIN_ADVANCE_K_SET_BY_GCODE
+#define C_LIN_ADVANCE_K LIN_ADVANCE_K_POLYMAX_PC
 
 //===========================================================================
 //============================ TMC2209 STEPPERS =============================
@@ -91,19 +91,19 @@
 //===========================================================================
 
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
-#define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 400, 40 }
-#define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 400, 40 }
+#define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 400, 25 }
+#define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 400, 7500 }
 #define C_MANUAL_FEEDRATE {1400, 1400, 60, 40 }
-#define C_DEFAULT_ACCELERATION         500   // X, Y, Z and E acceleration for printing moves
+#define C_DEFAULT_ACCELERATION         540   // X, Y, Z and E acceleration for printing moves
 #define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
-#define C_DEFAULT_EJERK 5.0  // May be used by Linear Advance
+#define C_DEFAULT_EJERK (C_DEFAULT_ACCELERATION/100)  // May be used by Linear Advance
 
 //===========================================================================
 //================ MOVEMENT/JUNCTION DEVIATION ==============================
 //===========================================================================
 //wanted jerk
-#define C_JD_JERK 10.0
+#define C_JD_JERK 8.0
 // JD acceleration to the power of two
 #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
 #define C_JD_FORMULA (C_NOZZLE_DIAMETER * C_JD_JERK * C_JD_JERK / C_DEFAULT_ACCELERATION)
@@ -136,9 +136,9 @@
 #define C_PIDTEMPBED_SETTINGS_260
 
 #ifdef C_PIDTEMPBED_SETTINGS_260
-    #define C_DEFAULT_bedKp 126.63
-    #define C_DEFAULT_bedKi 23.57
-    #define C_DEFAULT_bedKd 453.64
+    #define C_DEFAULT_bedKp 133.1174
+    #define C_DEFAULT_bedKi 25.9463
+    #define C_DEFAULT_bedKd 455.3061
 #else
     #define C_DEFAULT_bedKp 126.63
     #define C_DEFAULT_bedKi 23.57
@@ -160,10 +160,10 @@
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
-#define C_PAPER_THICKNESS 0.25
-#define C_NOZZLE_TO_PROBE_OFFSET_Z (-1.850+C_PAPER_THICKNESS)//-1.6
+#define C_PAPER_THICKNESS 0.56//needed for buildtak
+#define C_NOZZLE_TO_PROBE_OFFSET_Z (-1.85+C_PAPER_THICKNESS)//-1.6
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
-#define C_PROBING_MARGIN 10
+#define C_PROBING_MARGIN 15
 #define C_XY_PROBE_SPEED 6000
 #define C_Z_PROBE_SPEED_FAST (4*60)
 #define C_Z_PROBE_SPEED_SLOW_DIVISOR 2
