@@ -7,7 +7,7 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020042
+#define CUSTOM_CONFIG_H_VERSION 020044
 #define C_MACHINE_NAME "Beep boop"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
@@ -91,9 +91,9 @@
 //===========================================================================
 
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
-#define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 400, 50 }
-#define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 400, 50 }
-#define C_MANUAL_FEEDRATE {1400, 1400, 60, 75 }
+#define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 400, 40 }
+#define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 400, 40 }
+#define C_MANUAL_FEEDRATE {1400, 1400, 60, 40 }
 #define C_DEFAULT_ACCELERATION         500   // X, Y, Z and E acceleration for printing moves
 #define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
@@ -103,7 +103,7 @@
 //================ MOVEMENT/JUNCTION DEVIATION ==============================
 //===========================================================================
 //wanted jerk
-#define C_JD_JERK 8
+#define C_JD_JERK 10.0
 // JD acceleration to the power of two
 #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
 #define C_JD_FORMULA (C_NOZZLE_DIAMETER * C_JD_JERK * C_JD_JERK / C_DEFAULT_ACCELERATION)
@@ -160,8 +160,8 @@
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
-#define C_PAPER_THICKNESS 0.12
-#define C_NOZZLE_TO_PROBE_OFFSET_Z (-1.340+C_PAPER_THICKNESS)//-1.57
+#define C_PAPER_THICKNESS 0.25
+#define C_NOZZLE_TO_PROBE_OFFSET_Z (-1.850+C_PAPER_THICKNESS)//-1.6
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 10
 #define C_XY_PROBE_SPEED 6000
