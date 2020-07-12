@@ -633,7 +633,7 @@
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
 
-#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
+//#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
 
@@ -657,7 +657,7 @@
 
   // Safety: The probe needs time to recognize the command.
   //         Minimum command delay (ms). Enable and increase if needed.
-  #define BLTOUCH_DELAY 350
+  #define BLTOUCH_DELAY 500
 
   /**
    * Settings for BLTOUCH Classic 1.2, 1.3 or BLTouch Smart 1.0, 2.0, 2.2, 3.0, 3.1, and most clones:
@@ -1551,7 +1551,7 @@
 #if ENABLED(BABYSTEPPING)
   //#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
   //#define BABYSTEP_WITHOUT_HOMING
-  //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
+  #define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
   #define BABYSTEP_INVERT_Z false           // Change if Z babysteps should go the other way
   #define BABYSTEP_MULTIPLICATOR_Z  4       // Babysteps are very small. Increase for faster motion.
   #define BABYSTEP_MULTIPLICATOR_XY 1
@@ -1786,8 +1786,8 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MINIMUM_STEPPER_POST_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
-#define MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
+//#define MINIMUM_STEPPER_POST_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
+//#define MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_DIR_DELAY
 
 /**
  * Minimum stepper driver pulse width (in µs)
@@ -1806,7 +1806,7 @@
  * Maximum stepping rate (in Hz) the stepper driver allows
  *  If undefined, defaults to 1MHz / (2 * MINIMUM_STEPPER_PULSE)
  *  5000000 : Maximum for TMC2xxx stepper drivers
- *  1000000 : Maximum for LV8729 stepper driver
+ *  1000000 : Maximum for LVUSTOM_MINIMUM_STEPPER_PULSE8729 stepper driver
  *  500000  : Maximum for A4988 stepper driver
  *  250000  : Maximum for DRV8825 stepper driver
  *  150000  : Maximum for TB6600 stepper driver

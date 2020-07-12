@@ -7,8 +7,8 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020034
-#define C_MACHINE_NAME "Beep Boop"
+#define CUSTOM_CONFIG_H_VERSION 020039
+#define C_MACHINE_NAME "Beep boop"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
 #define C_BAUDRATE 115200
@@ -18,6 +18,7 @@
 //===========================================================================
 
 #define LIN_ADVANCE_K_POLYMAX_PC 0.43
+#define LIN_ADVANCE_K_REAL_PLA 0.55
 #define LIN_ADVANCE_K_SET_BY_GCODE 0.0
 //Setting linear advance k to 0 allows us to set the k value via m500 in our slicer for specific materials.
 #define C_LIN_ADVANCE_K LIN_ADVANCE_K_SET_BY_GCODE
@@ -30,8 +31,8 @@
 #define CUSTOM_MINIMUM_STEPPER_PRE_DIR_DELAY CUSTOM_MINIMUM_STEPPER_PRE_DIR_DELAY
 #define CUSTOM_MINIMUM_STEPPER_DIR_DELAY CUSTOM_MINIMUM_STEPPER_PRE_DIR_DELAY
 
-#define CUSTOM_MINIMUM_STEPPER_PULSE 0
-#define CUSTOM_MAXIMUM_STEPPER_RATE 5000000
+//#define CUSTOM_MINIMUM_STEPPER_PULSE 0
+//#define CUSTOM_MAXIMUM_STEPPER_RATE 5000000
 
 //===========================================================================
 //================================= BUFFERS =================================
@@ -79,9 +80,9 @@
 #define C_TMC_HYBRID_THRESHOLD_Z 600
 #define C_TMC_HYBRID_THRESHOLD_E 1200
 
-#define C_TMC_STALL_SENSITIVITY_X 8
+#define C_TMC_STALL_SENSITIVITY_X 60
 #define C_TMC_STALL_SENSITIVITY_X2 C_TMC_STALL_SENSITIVITY_X
-#define C_TMC_STALL_SENSITIVITY_Y 8
+#define C_TMC_STALL_SENSITIVITY_Y 60
 #define C_TMC_STALL_SENSITIVITY_Y2 C_TMC_STALL_SENSITIVITY_Y
 
 
@@ -90,24 +91,22 @@
 //===========================================================================
 
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
-#define C_DEFAULT_MAX_FEEDRATE          { 4000, 4000, 30, 100 }
-#define C_DEFAULT_MAX_ACCELERATION      { 12000, 12000, 12000, 7500 }
-#define C_MANUAL_FEEDRATE { 60*60, 60*60, 6*60, 60 }
-#define C_DEFAULT_ACCELERATION          540   // X, Y, Z and E acceleration for printing moves
-#define C_DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
+#define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 400, 50 }
+#define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 400, 50 }
+#define C_MANUAL_FEEDRATE {1400, 1400, 60, 75 }
+#define C_DEFAULT_ACCELERATION         540   // X, Y, Z and E acceleration for printing moves
+#define C_DEFAULT_RETRACT_ACCELERATION  (C_DEFAULT_ACCELERATION-40)    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
-#define C_DEFAULT_EJERK (C_DEFAULT_ACCELERATION / 10)  // May be used by Linear Advance
+#define C_DEFAULT_EJERK 5.0  // May be used by Linear Advance
 
 //===========================================================================
 //================ MOVEMENT/JUNCTION DEVIATION ==============================
 //===========================================================================
-// jd nozzle diameter
-#define C_JD_NOZZLE_DIA C_NOZZLE_DIAMETER
 //wanted jerk
-#define C_JD_JERK 7.0
+#define C_JD_JERK 8
 // JD acceleration to the power of two
 #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
-#define C_JD_FORMULA (C_JD_NOZZLE_DIA * (C_JD_JERK_SQUARED / C_DEFAULT_ACCELERATION))
+#define C_JD_FORMULA (C_NOZZLE_DIAMETER * C_JD_JERK * C_JD_JERK / C_DEFAULT_ACCELERATION)
 //Final junction deviation value
 #define C_JUNCTION_DEVIATION_MM C_JD_FORMULA
 
@@ -125,9 +124,9 @@
 #define C_PID_SETTINGS_260
 
 #ifdef C_PID_SETTINGS_260
-    #define C_DEFAULT_Kp 22.69
-    #define C_DEFAULT_Ki 2.01
-    #define C_DEFAULT_Kd 64.13
+    #define C_DEFAULT_Kp 27.7354
+    #define C_DEFAULT_Ki 3.1170
+    #define C_DEFAULT_Kd 61.6973
 #else
     #define C_DEFAULT_Kp 22.69
     #define C_DEFAULT_Ki 2.01
@@ -154,19 +153,20 @@
 //===========================================================================
 
 
-#define C_HOMING_FEEDRATE_XY 6000
-#define C_HOMING_FEEDRATE_Z 400
+#define C_HOMING_FEEDRATE_XY (60*60)
+#define C_HOMING_FEEDRATE_Z (4*60)
 //old was -2.355
 #define C_NOZZLE_TO_PROBE_OFFSET_X -43
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
-#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.615//-1.625
+#define C_PAPER_THICKNESS 0.12
+#define C_NOZZLE_TO_PROBE_OFFSET_Z (-1.325+C_PAPER_THICKNESS)//-1.57
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 10
-#define C_XY_PROBE_SPEED 6000
+#define C_XY_PROBE_SPEED C_HOMING_FEEDRATE_XY
 #define C_Z_PROBE_SPEED_FAST C_HOMING_FEEDRATE_Z
-#define C_Z_PROBE_SPEED_SLOW_DIVISOR 3
+#define C_Z_PROBE_SPEED_SLOW_DIVISOR 2
 
 //===========================================================================
 //================================= BED SIZE ================================
@@ -181,7 +181,7 @@
 //======================== UNIFIED BED LEVEL ================================
 //===========================================================================
 
-#define C_GRID_POINTS_XY 5
+#define C_GRID_POINTS_XY 4
 #define C_MESH_INSET (abs(C_NOZZLE_TO_PROBE_OFFSET_X)+1)
 
 //===========================================================================
@@ -193,7 +193,8 @@
 #define C_MESH_TEST_PLA 1
 
 #define C_MESH_TEST_NOZZLE_SIZE    C_NOZZLE_DIAMETER
-#define C_MESH_TEST_LAYER_HEIGHT   0.2
+//nozzle diameter divided by 2
+#define C_MESH_TEST_LAYER_HEIGHT   (C_MESH_TEST_NOZZLE_SIZE/2)
 #define C_G26_XY_FEEDRATE         20
 #define C_G26_RETRACT_MULTIPLIER   1.0
 #define C_DEFAULT_MESH_TEST_HOTEND_TEMP  205

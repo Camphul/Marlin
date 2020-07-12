@@ -779,7 +779,7 @@
  *   M204 T    Travel Acceleration
  */
 #define DEFAULT_ACCELERATION          C_DEFAULT_ACCELERATION           // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  480    // E acceleration for retracts
+#define DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_RETRACT_ACCELERATION    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_TRAVEL_ACCELERATION     // X, Y, Z acceleration for travel (non printing) moves
 
 /**
@@ -1049,7 +1049,7 @@
  */
 //#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
-  #define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
+  //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
 #endif
 #define PROBING_FANS_OFF          // Turn fans off when probing
 //#define PROBING_STEPPERS_OFF      // Turn steppers off (unless needed to hold position) when probing
@@ -1115,8 +1115,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 235
-#define Y_BED_SIZE 235
+#define X_BED_SIZE C_X_BED_SIZE
+#define Y_BED_SIZE C_Y_BED_SIZE
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0// -1
@@ -1381,8 +1381,8 @@
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing when homing all axes (G28).
-  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)   // X point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_Y_POINT ((Y_BED_SIZE) / 2)   // Y point for Z homing when homing all axes (G28).
 #endif
 
 // Homing speeds (mm/m)
