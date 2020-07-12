@@ -7,7 +7,7 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020039
+#define CUSTOM_CONFIG_H_VERSION 020042
 #define C_MACHINE_NAME "Beep boop"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
@@ -62,8 +62,8 @@
  * TMCStepper library is required to use TMC stepper drivers.
  * https://github.com/teemuatlut/TMCStepper
  */
-#define C_TMC_XYZ_CURRENT 590//XYZ max rating 840ma
-#define C_TMC_E_CURRENT 700//E max rating 1000ma
+#define C_TMC_XYZ_CURRENT 580//XYZ max rating 840ma
+#define C_TMC_E_CURRENT 650//E max rating 1000ma
 #define C_TMC_MICROSTEPS 16
 #define C_TMC_INTERPOLATE true
 #define C_TMC_HOLD_MULTIPLIER 0.5
@@ -94,8 +94,8 @@
 #define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 400, 50 }
 #define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 400, 50 }
 #define C_MANUAL_FEEDRATE {1400, 1400, 60, 75 }
-#define C_DEFAULT_ACCELERATION         540   // X, Y, Z and E acceleration for printing moves
-#define C_DEFAULT_RETRACT_ACCELERATION  (C_DEFAULT_ACCELERATION-40)    // E acceleration for retracts
+#define C_DEFAULT_ACCELERATION         500   // X, Y, Z and E acceleration for printing moves
+#define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
 #define C_DEFAULT_EJERK 5.0  // May be used by Linear Advance
 
@@ -153,19 +153,19 @@
 //===========================================================================
 
 
-#define C_HOMING_FEEDRATE_XY (60*60)
-#define C_HOMING_FEEDRATE_Z (4*60)
+#define C_HOMING_FEEDRATE_XY 6000
+#define C_HOMING_FEEDRATE_Z (6*60)
 //old was -2.355
 #define C_NOZZLE_TO_PROBE_OFFSET_X -43
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
 #define C_PAPER_THICKNESS 0.12
-#define C_NOZZLE_TO_PROBE_OFFSET_Z (-1.325+C_PAPER_THICKNESS)//-1.57
+#define C_NOZZLE_TO_PROBE_OFFSET_Z (-1.340+C_PAPER_THICKNESS)//-1.57
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 10
-#define C_XY_PROBE_SPEED C_HOMING_FEEDRATE_XY
-#define C_Z_PROBE_SPEED_FAST C_HOMING_FEEDRATE_Z
+#define C_XY_PROBE_SPEED 6000
+#define C_Z_PROBE_SPEED_FAST (4*60)
 #define C_Z_PROBE_SPEED_SLOW_DIVISOR 2
 
 //===========================================================================
@@ -181,7 +181,7 @@
 //======================== UNIFIED BED LEVEL ================================
 //===========================================================================
 
-#define C_GRID_POINTS_XY 4
+#define C_GRID_POINTS_XY 3
 #define C_MESH_INSET (abs(C_NOZZLE_TO_PROBE_OFFSET_X)+1)
 
 //===========================================================================
