@@ -7,8 +7,8 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020044
-#define C_MACHINE_NAME "Beep boop"
+#define CUSTOM_CONFIG_H_VERSION 020051
+#define C_MACHINE_NAME "Yeet"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
 #define C_BAUDRATE 115200
@@ -21,7 +21,7 @@
 #define LIN_ADVANCE_K_REAL_PLA 0.55
 #define LIN_ADVANCE_K_SET_BY_GCODE 0.0
 //Setting linear advance k to 0 allows us to set the k value via m500 in our slicer for specific materials.
-#define C_LIN_ADVANCE_K LIN_ADVANCE_K_POLYMAX_PC
+#define C_LIN_ADVANCE_K LIN_ADVANCE_K_SET_BY_GCODE
 
 //===========================================================================
 //============================ TMC2209 STEPPERS =============================
@@ -62,7 +62,7 @@
  * TMCStepper library is required to use TMC stepper drivers.
  * https://github.com/teemuatlut/TMCStepper
  */
-#define C_TMC_XYZ_CURRENT 580//XYZ max rating 840ma
+#define C_TMC_XYZ_CURRENT 530//XYZ max rating 840ma
 #define C_TMC_E_CURRENT 650//E max rating 1000ma
 #define C_TMC_MICROSTEPS 16
 #define C_TMC_INTERPOLATE true
@@ -91,10 +91,10 @@
 //===========================================================================
 
 #define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
-#define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 400, 25 }
-#define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 400, 7500 }
+#define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 100, 25 }
+#define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 100, 7500 }
 #define C_MANUAL_FEEDRATE {1400, 1400, 60, 40 }
-#define C_DEFAULT_ACCELERATION         540   // X, Y, Z and E acceleration for printing moves
+#define C_DEFAULT_ACCELERATION         500   // X, Y, Z and E acceleration for printing moves
 #define C_DEFAULT_RETRACT_ACCELERATION  C_DEFAULT_ACCELERATION    // E acceleration for retracts
 #define C_DEFAULT_TRAVEL_ACCELERATION   C_DEFAULT_ACCELERATION    // X, Y, Z acceleration for travel (non printing) moves
 #define C_DEFAULT_EJERK (C_DEFAULT_ACCELERATION/100)  // May be used by Linear Advance
@@ -154,16 +154,15 @@
 
 
 #define C_HOMING_FEEDRATE_XY 6000
-#define C_HOMING_FEEDRATE_Z (6*60)
+#define C_HOMING_FEEDRATE_Z (4*60)
 //old was -2.355
 #define C_NOZZLE_TO_PROBE_OFFSET_X -43
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
-#define C_PAPER_THICKNESS 0.56//needed for buildtak
-#define C_NOZZLE_TO_PROBE_OFFSET_Z (-1.85+C_PAPER_THICKNESS)//-1.6
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.445//-2.25//MAYBE -1.17 or -152 USE TO BE -1.47 FOR CREALITY MAGBED
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
-#define C_PROBING_MARGIN 15
+#define C_PROBING_MARGIN 44
 #define C_XY_PROBE_SPEED 6000
 #define C_Z_PROBE_SPEED_FAST (4*60)
 #define C_Z_PROBE_SPEED_SLOW_DIVISOR 2
