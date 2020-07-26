@@ -7,7 +7,7 @@
 //===============================- GENERAL -=================================
 //===========================================================================
 
-#define CUSTOM_CONFIG_H_VERSION 020051
+#define CUSTOM_CONFIG_H_VERSION 020055
 #define C_MACHINE_NAME "Yeet"
 #define C_FILAMENT_DIA 1.75
 #define C_NOZZLE_DIAMETER 0.4
@@ -62,7 +62,8 @@
  * TMCStepper library is required to use TMC stepper drivers.
  * https://github.com/teemuatlut/TMCStepper
  */
-#define C_TMC_XYZ_CURRENT 530//XYZ max rating 840ma
+#define C_TMC_XY_CURRENT 530//XY max rating 840ma
+#define C_TMC_DUAL_Z_CURRENT (C_TMC_XY_CURRENT*2)//dual motors so basically current*2
 #define C_TMC_E_CURRENT 650//E max rating 1000ma
 #define C_TMC_MICROSTEPS 16
 #define C_TMC_INTERPOLATE true
@@ -90,7 +91,7 @@
 //================================= MOVEMENT ================================
 //===========================================================================
 
-#define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 104 }
+#define C_DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 126/*93*//*104*/ }
 #define C_DEFAULT_MAX_FEEDRATE          {1200, 1200, 100, 25 }
 #define C_DEFAULT_MAX_ACCELERATION      {1200, 1200, 100, 7500 }
 #define C_MANUAL_FEEDRATE {1400, 1400, 60, 40 }
@@ -120,8 +121,8 @@
 
 //PID settings
 
-//PID settings for 260C
-#define C_PID_SETTINGS_260
+//PID settings for 280C
+#define C_PID_SETTINGS_280
 
 #ifdef C_PID_SETTINGS_260
     #define C_DEFAULT_Kp 27.7354
@@ -133,9 +134,9 @@
     #define C_DEFAULT_Kd 64.13
 #endif
 
-#define C_PIDTEMPBED_SETTINGS_260
+#define C_PIDTEMPBED_SETTINGS_280
 
-#ifdef C_PIDTEMPBED_SETTINGS_260
+#ifdef C_PIDTEMPBED_SETTINGS_280
     #define C_DEFAULT_bedKp 133.1174
     #define C_DEFAULT_bedKi 25.9463
     #define C_DEFAULT_bedKd 455.3061
@@ -160,7 +161,7 @@
 #define C_NOZZLE_TO_PROBE_OFFSET_Y -6
 //old was -1.63
 //wass -1.455
-#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.445//-2.25//MAYBE -1.17 or -152 USE TO BE -1.47 FOR CREALITY MAGBED
+#define C_NOZZLE_TO_PROBE_OFFSET_Z -1.0450//-0.8700// -0.6950 //-0.6450//-1.445//-2.25//MAYBE -1.17 or -152 USE TO BE -1.47 FOR CREALITY MAGBED
 #define C_NOZZLE_TO_PROBE_OFFSET {C_NOZZLE_TO_PROBE_OFFSET_X,C_NOZZLE_TO_PROBE_OFFSET_Y,C_NOZZLE_TO_PROBE_OFFSET_Z }
 #define C_PROBING_MARGIN 44
 #define C_XY_PROBE_SPEED 6000

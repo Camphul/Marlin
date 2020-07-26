@@ -2206,7 +2206,7 @@
   #define INTERPOLATE       C_TMC_INTERPOLATE  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       C_TMC_XYZ_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       C_TMC_XY_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     C_TMC_MICROSTEPS    // 0..256
     #define X_RSENSE          C_TMC_RSENSE
@@ -2214,7 +2214,7 @@
   #endif
 
   #if AXIS_IS_TMC(X2)
-    #define X2_CURRENT      C_TMC_XYZ_CURRENT
+    #define X2_CURRENT      C_TMC_XY_CURRENT
     #define X2_CURRENT_HOME X2_CURRENT
     #define X2_MICROSTEPS    C_TMC_MICROSTEPS
     #define X2_RSENSE         C_TMC_RSENSE
@@ -2222,7 +2222,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       C_TMC_XYZ_CURRENT
+    #define Y_CURRENT       C_TMC_XY_CURRENT
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS     C_TMC_MICROSTEPS
     #define Y_RSENSE          C_TMC_RSENSE
@@ -2230,7 +2230,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y2)
-    #define Y2_CURRENT      C_TMC_XYZ_CURRENT
+    #define Y2_CURRENT      C_TMC_XY_CURRENT
     #define Y2_CURRENT_HOME Y2_CURRENT
     #define Y2_MICROSTEPS    C_TMC_MICROSTEPS
     #define Y2_RSENSE         C_TMC_RSENSE
@@ -2238,7 +2238,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       C_TMC_XYZ_CURRENT
+    #define Z_CURRENT       C_TMC_DUAL_Z_CURRENT
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     C_TMC_MICROSTEPS
     #define Z_RSENSE          C_TMC_RSENSE
@@ -2246,7 +2246,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z2)
-    #define Z2_CURRENT      C_TMC_XYZ_CURRENT
+    #define Z2_CURRENT      C_TMC_DUAL_Z_CURRENT
     #define Z2_CURRENT_HOME Z2_CURRENT
     #define Z2_MICROSTEPS    C_TMC_MICROSTEPS
     #define Z2_RSENSE         C_TMC_RSENSE
@@ -2254,7 +2254,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z3)
-    #define Z3_CURRENT      C_TMC_XYZ_CURRENT
+    #define Z3_CURRENT      C_TMC_DUAL_Z_CURRENT
     #define Z3_CURRENT_HOME Z3_CURRENT
     #define Z3_MICROSTEPS    C_TMC_MICROSTEPS
     #define Z3_RSENSE         C_TMC_RSENSE
@@ -2262,7 +2262,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z4)
-    #define Z4_CURRENT      C_TMC_XYZ_CURRENT
+    #define Z4_CURRENT      C_TMC_DUAL_Z_CURRENT
     #define Z4_CURRENT_HOME Z4_CURRENT
     #define Z4_MICROSTEPS    C_TMC_MICROSTEPS
     #define Z4_RSENSE         C_TMC_RSENSE
