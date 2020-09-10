@@ -132,7 +132,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Kaasstengel"
+#define CUSTOM_MACHINE_NAME "Beep boop"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -759,7 +759,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE           {1200, 1200, 100, 25 }
+#define DEFAULT_MAX_FEEDRATE           { 700, 700, 20, 25 }
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -772,7 +772,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION       {1200, 1200, 100, 6000 }
+#define DEFAULT_MAX_ACCELERATION       { 500, 500, 100, 5000 }
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -813,7 +813,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    (DEFAULT_ACCELERATION/100)   // May be used by Linear Advance
+#define DEFAULT_EJERK    5   // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -824,7 +824,7 @@
  */
 #if DISABLED(CLASSIC_JERK)
   //wanted jerk
-  #define C_JD_JERK 8.0
+  #define C_JD_JERK 10.0
   #define C_NOZZLE_DIAMETER 0.4
   // JD acceleration to the power of two
   #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
@@ -843,7 +843,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-#define S_CURVE_ACCELERATION
+//#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -1012,7 +1012,7 @@
 #define PROBING_MARGIN 35
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_SPEED 6000
+#define XY_PROBE_SPEED (80*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST (4*60)
@@ -1412,7 +1412,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_XY 6000
+#define HOMING_FEEDRATE_XY (80*60)
 #define HOMING_FEEDRATE_Z  (4*60)
 
 // Validate that endstops are triggered on homing moves
