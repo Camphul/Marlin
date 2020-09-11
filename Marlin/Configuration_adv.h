@@ -629,7 +629,7 @@
 
 //#define SENSORLESS_BACKOFF_MM  { 2, 2 }     // (mm) Backoff from endstops before sensorless homing
 
-#define HOMING_BUMP_MM      { 5, 5, 2 }       // (mm) Backoff from endstops after first bump
+#define HOMING_BUMP_MM      { /*5, 5, 2*/0,0,0 }       // (mm) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
@@ -845,7 +845,7 @@
  * See https://hydraraptor.blogspot.com/2010/12/frequency-limit.html
  * Use M201 F<freq> G<min%> to change limits at runtime.
  */
-#define XY_FREQUENCY_LIMIT      10 // (Hz) Maximum frequency of small zigzag infill moves. Set with M201 F<hertz>.
+//#define XY_FREQUENCY_LIMIT      10 // (Hz) Maximum frequency of small zigzag infill moves. Set with M201 F<hertz>.
 #ifdef XY_FREQUENCY_LIMIT
   #define XY_FREQUENCY_MIN_PERCENT 5 // (percent) Minimum FR percentage to apply. Set with M201 G<min%>.
 #endif
@@ -950,7 +950,7 @@
  * vibration and surface artifacts. The algorithm adapts to provide the best possible step smoothing at the
  * lowest stepping frequencies.
  */
-#define ADAPTIVE_STEP_SMOOTHING
+//#define ADAPTIVE_STEP_SMOOTHING
 
 /**
  * Custom Microstepping
@@ -2224,12 +2224,13 @@
  * https://github.com/teemuatlut/TMCStepper
  */
 #if HAS_TRINAMIC_CONFIG
-
-  #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
+  #define C_XYZ_CURRENT 550
+  #define R_SENSE 0.11
+  #define HOLD_MULTIPLIER    0.7  // Scales down the holding current from run current
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       530        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       C_XYZ_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16    // 0..256
     #define X_RSENSE          0.11
@@ -2237,7 +2238,7 @@
   #endif
 
   #if AXIS_IS_TMC(X2)
-    #define X2_CURRENT      530
+    #define X2_CURRENT      C_XYZ_CURRENT
     #define X2_CURRENT_HOME X2_CURRENT
     #define X2_MICROSTEPS    16
     #define X2_RSENSE         0.11
@@ -2245,7 +2246,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       530
+    #define Y_CURRENT       C_XYZ_CURRENT
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS     16
     #define Y_RSENSE          0.11
@@ -2253,7 +2254,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y2)
-    #define Y2_CURRENT      530
+    #define Y2_CURRENT      C_XYZ_CURRENT
     #define Y2_CURRENT_HOME Y2_CURRENT
     #define Y2_MICROSTEPS    16
     #define Y2_RSENSE         0.11
@@ -2261,7 +2262,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       530
+    #define Z_CURRENT       C_XYZ_CURRENT
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
@@ -2269,7 +2270,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z2)
-    #define Z2_CURRENT      530
+    #define Z2_CURRENT      C_XYZ_CURRENT
     #define Z2_CURRENT_HOME Z2_CURRENT
     #define Z2_MICROSTEPS    16
     #define Z2_RSENSE         0.11
@@ -2277,7 +2278,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z3)
-    #define Z3_CURRENT      530
+    #define Z3_CURRENT      C_XYZ_CURRENT
     #define Z3_CURRENT_HOME Z3_CURRENT
     #define Z3_MICROSTEPS    16
     #define Z3_RSENSE         0.11
@@ -2285,7 +2286,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z4)
-    #define Z4_CURRENT      530
+    #define Z4_CURRENT      C_XYZ_CURRENT
     #define Z4_CURRENT_HOME Z4_CURRENT
     #define Z4_MICROSTEPS    16
     #define Z4_RSENSE         0.11
@@ -2293,28 +2294,28 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      650
+    #define E0_CURRENT      660
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E1)
-    #define E1_CURRENT      530
+    #define E1_CURRENT      660
     #define E1_MICROSTEPS    16
     #define E1_RSENSE         0.11
     #define E1_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E2)
-    #define E2_CURRENT      530
+    #define E2_CURRENT      660
     #define E2_MICROSTEPS    16
     #define E2_RSENSE         0.11
     #define E2_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E3)
-    #define E3_CURRENT      530
+    #define E3_CURRENT      660
     #define E3_MICROSTEPS    16
     #define E3_RSENSE         0.11
     #define E3_CHAIN_POS     -1
@@ -2430,16 +2431,17 @@
    * Provided parameter sets are
    * CHOPPER_DEFAULT_12V
    * CHOPPER_DEFAULT_19V
-   * CHOPPER_DEFAULT_24V
+   * CHOPPER_DEFAULT_24V  { 4,  2, 1 }
    * CHOPPER_DEFAULT_36V
    * CHOPPER_09STEP_24V   // 0.9 degree steppers (24V)
-   * CHOPPER_PRUSAMK3_24V // Imported parameters from the official Průša firmware for MK3 (24V)
+   * CHOPPER_PRUSAMK3_24V // Imported parameters from the official Průša firmware for MK3 (24V)  { 3, -2, 6 }
    * CHOPPER_MARLIN_119   // Old defaults from Marlin v1.1.9
    *
    * Define you own with
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    */
-  #define CHOPPER_TIMING CHOPPER_DEFAULT_12V
+  #define CHOPPER_TMC2130 { 3/* 2 OR 3 */, -2, 6 }
+  #define CHOPPER_TIMING CHOPPER_TMC2130
 
   /**
    * Monitor Trinamic drivers
@@ -2509,20 +2511,20 @@
    * IMPROVE_HOMING_RELIABILITY tunes acceleration and jerk when
    * homing and adds a guard period for endstop triggering.
    */
-  //#define SENSORLESS_HOMING // StallGuard capable drivers only
+  #define SENSORLESS_HOMING // StallGuard capable drivers only
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  8
+    #define X_STALL_SENSITIVITY  6
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  8
+    #define Y_STALL_SENSITIVITY  6
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
-    //#define SPI_ENDSTOPS              // TMC2130 only
-    //#define IMPROVE_HOMING_RELIABILITY
+    #define SPI_ENDSTOPS              // TMC2130 only
+    #define IMPROVE_HOMING_RELIABILITY
   #endif
 
   /**
@@ -2535,7 +2537,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   //#define TMC_HOME_PHASE { 896, 896, 896 }
+   //#define TMC_HOME_PHASE { 640, 640, 640 }
 
   /**
    * Beta feature!
@@ -2560,7 +2562,10 @@
    *   stepperY.intpol(0); \
    * }
    */
-  #define TMC_ADV() {  }
+  #define TMC_ADV() { \
+    stepperY.toff(3);\
+    stepperX.toff(3);\
+  }
 
 #endif // HAS_TRINAMIC_CONFIG
 
