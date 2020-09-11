@@ -627,15 +627,15 @@
  * the position of the toolhead relative to the workspace.
  */
 
-#define SENSORLESS_BACKOFF_MM  { 2, 2 }     // (mm) Backoff from endstops before sensorless homing
+#define SENSORLESS_BACKOFF_MM  { 2,2 }     // (mm) Backoff from endstops before sensorless homing
 
 #define HOMING_BUMP_MM      { /*5, 5, 2*/0,0,0 }       // (mm) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
-#define HOMING_BACKOFF_POST_MM { 2, 2 }  // (mm) Backoff from endstops after homing
+#define HOMING_BACKOFF_POST_MM { 2,2 }  // (mm) Backoff from endstops after homing
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
-//#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
+#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
 
 // @section bltouch
@@ -2225,13 +2225,14 @@
  */
 #if HAS_TRINAMIC_CONFIG
   #define C_XYZ_CURRENT 540
+  #define C_XYZ_HOMING_CURRENT 500
   #define R_SENSE 0.11
   #define HOLD_MULTIPLIER    0.7  // Scales down the holding current from run current
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       C_XYZ_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
-    #define X_CURRENT_HOME  (X_CURRENT+10)  // (mA) RMS current for sensorless homing
+    #define X_CURRENT_HOME  C_XYZ_HOMING_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16    // 0..256
     #define X_RSENSE          0.11
     #define X_CHAIN_POS      -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
@@ -2239,7 +2240,7 @@
 
   #if AXIS_IS_TMC(X2)
     #define X2_CURRENT      C_XYZ_CURRENT
-    #define X2_CURRENT_HOME (X2_CURRENT+10)
+    #define X2_CURRENT_HOME C_XYZ_HOMING_CURRENT
     #define X2_MICROSTEPS    16
     #define X2_RSENSE         0.11
     #define X2_CHAIN_POS     -1
@@ -2247,7 +2248,7 @@
 
   #if AXIS_IS_TMC(Y)
     #define Y_CURRENT       C_XYZ_CURRENT
-    #define Y_CURRENT_HOME  (Y_CURRENT+10)
+    #define Y_CURRENT_HOME  C_XYZ_HOMING_CURRENT
     #define Y_MICROSTEPS     16
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
@@ -2255,7 +2256,7 @@
 
   #if AXIS_IS_TMC(Y2)
     #define Y2_CURRENT      C_XYZ_CURRENT
-    #define Y2_CURRENT_HOME (Y2_CURRENT+10)
+    #define Y2_CURRENT_HOME C_XYZ_HOMING_CURRENT
     #define Y2_MICROSTEPS    16
     #define Y2_RSENSE         0.11
     #define Y2_CHAIN_POS     -1
@@ -2263,7 +2264,7 @@
 
   #if AXIS_IS_TMC(Z)
     #define Z_CURRENT       C_XYZ_CURRENT
-    #define Z_CURRENT_HOME  Z_CURRENT
+    #define Z_CURRENT_HOME  C_XYZ_HOMING_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
     #define Z_CHAIN_POS      -1
@@ -2271,7 +2272,7 @@
 
   #if AXIS_IS_TMC(Z2)
     #define Z2_CURRENT      C_XYZ_CURRENT
-    #define Z2_CURRENT_HOME Z2_CURRENT
+    #define Z2_CURRENT_HOME C_XYZ_HOMING_CURRENT
     #define Z2_MICROSTEPS    16
     #define Z2_RSENSE         0.11
     #define Z2_CHAIN_POS     -1
@@ -2279,7 +2280,7 @@
 
   #if AXIS_IS_TMC(Z3)
     #define Z3_CURRENT      C_XYZ_CURRENT
-    #define Z3_CURRENT_HOME Z3_CURRENT
+    #define Z3_CURRENT_HOME C_XYZ_HOMING_CURRENT
     #define Z3_MICROSTEPS    16
     #define Z3_RSENSE         0.11
     #define Z3_CHAIN_POS     -1
@@ -2287,35 +2288,35 @@
 
   #if AXIS_IS_TMC(Z4)
     #define Z4_CURRENT      C_XYZ_CURRENT
-    #define Z4_CURRENT_HOME Z4_CURRENT
+    #define Z4_CURRENT_HOME C_XYZ_HOMING_CURRENT
     #define Z4_MICROSTEPS    16
     #define Z4_RSENSE         0.11
     #define Z4_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      660
+    #define E0_CURRENT      650
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E1)
-    #define E1_CURRENT      660
+    #define E1_CURRENT      650
     #define E1_MICROSTEPS    16
     #define E1_RSENSE         0.11
     #define E1_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E2)
-    #define E2_CURRENT      660
+    #define E2_CURRENT      650
     #define E2_MICROSTEPS    16
     #define E2_RSENSE         0.11
     #define E2_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(E3)
-    #define E3_CURRENT      660
+    #define E3_CURRENT      650
     #define E3_MICROSTEPS    16
     #define E3_RSENSE         0.11
     #define E3_CHAIN_POS     -1
@@ -2442,8 +2443,10 @@
    *
    */
   #define CHOPPER_TMC2130 { 3, -2, 6 }
-  #define CHOPPER_TMC2130_V2 { 4, 9, -3 }
-  #define CHOPPER_TIMING CHOPPER_TMC2130_V2
+
+  #define CHOPPER_TMC2130V2 { 3, 2, 1 }
+
+  #define CHOPPER_TIMING CHOPPER_TMC2130
 
   /**
    * Monitor Trinamic drivers
@@ -2471,24 +2474,24 @@
    * STEALTHCHOP_(XY|Z|E) must be enabled to use HYBRID_THRESHOLD.
    * M913 X/Y/Z/E to live tune the setting
    */
-  //#define HYBRID_THRESHOLD
+  #define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     100  // [mm/s]
-  #define X2_HYBRID_THRESHOLD    100
-  #define Y_HYBRID_THRESHOLD     100
-  #define Y2_HYBRID_THRESHOLD    100
-  #define Z_HYBRID_THRESHOLD       3
-  #define Z2_HYBRID_THRESHOLD      3
-  #define Z3_HYBRID_THRESHOLD      3
-  #define Z4_HYBRID_THRESHOLD      3
-  #define E0_HYBRID_THRESHOLD     30
-  #define E1_HYBRID_THRESHOLD     30
-  #define E2_HYBRID_THRESHOLD     30
-  #define E3_HYBRID_THRESHOLD     30
-  #define E4_HYBRID_THRESHOLD     30
-  #define E5_HYBRID_THRESHOLD     30
-  #define E6_HYBRID_THRESHOLD     30
-  #define E7_HYBRID_THRESHOLD     30
+  #define X_HYBRID_THRESHOLD     110  // [mm/s]
+  #define X2_HYBRID_THRESHOLD    110
+  #define Y_HYBRID_THRESHOLD     110
+  #define Y2_HYBRID_THRESHOLD    110
+  #define Z_HYBRID_THRESHOLD       110
+  #define Z2_HYBRID_THRESHOLD      110
+  #define Z3_HYBRID_THRESHOLD      110
+  #define Z4_HYBRID_THRESHOLD      110
+  #define E0_HYBRID_THRESHOLD     110//DEFAULT 3
+  #define E1_HYBRID_THRESHOLD     110//DEFAULT 3
+  #define E2_HYBRID_THRESHOLD     110//DEFAULT 3
+  #define E3_HYBRID_THRESHOLD     110//DEFAULT 3
+  #define E4_HYBRID_THRESHOLD     110//DEFAULT 3
+  #define E5_HYBRID_THRESHOLD     110//DEFAULT 3
+  #define E6_HYBRID_THRESHOLD     110//DEFAULT 3
+  #define E7_HYBRID_THRESHOLD     110//DEFAULT 3
 
   /**
    * Use StallGuard2 to home / probe X, Y, Z.
@@ -2517,9 +2520,9 @@
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  7
+    #define X_STALL_SENSITIVITY  4
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  8
+    #define Y_STALL_SENSITIVITY  6
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
@@ -2539,7 +2542,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   //#define TMC_HOME_PHASE { 640, 640, 640 }
+   #define TMC_HOME_PHASE { 640, 640, 640 }
 
   /**
    * Beta feature!
