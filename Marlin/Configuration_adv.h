@@ -2224,7 +2224,7 @@
  * https://github.com/teemuatlut/TMCStepper
  */
 #if HAS_TRINAMIC_CONFIG
-  #define C_XYZ_CURRENT 550
+  #define C_XYZ_CURRENT 540
   #define R_SENSE 0.11
   #define HOLD_MULTIPLIER    0.7  // Scales down the holding current from run current
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
@@ -2439,6 +2439,8 @@
    *
    * Define you own with
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
+   *
+   * TODO:try { 4, 9, -3 }
    */
   #define CHOPPER_TMC2130 { 3/* 2 OR 3 */, -2, 6 }
   #define CHOPPER_TIMING CHOPPER_TMC2130
@@ -2515,15 +2517,15 @@
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  6
+    #define X_STALL_SENSITIVITY  8
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  6
+    #define Y_STALL_SENSITIVITY  10
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
-    #define SPI_ENDSTOPS              // TMC2130 only
+    //#define SPI_ENDSTOPS              // TMC2130 only
     #define IMPROVE_HOMING_RELIABILITY
   #endif
 
@@ -2537,7 +2539,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   //#define TMC_HOME_PHASE { 640, 640, 640 }
+   #define TMC_HOME_PHASE { 640, 640, 640 }
 
   /**
    * Beta feature!
@@ -2563,8 +2565,6 @@
    * }
    */
   #define TMC_ADV() { \
-    stepperY.toff(3);\
-    stepperX.toff(3);\
   }
 
 #endif // HAS_TRINAMIC_CONFIG
