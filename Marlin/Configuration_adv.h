@@ -627,12 +627,12 @@
  * the position of the toolhead relative to the workspace.
  */
 
-//#define SENSORLESS_BACKOFF_MM  { 2, 2 }     // (mm) Backoff from endstops before sensorless homing
+#define SENSORLESS_BACKOFF_MM  { 2, 2 }     // (mm) Backoff from endstops before sensorless homing
 
 #define HOMING_BUMP_MM      { /*5, 5, 2*/0,0,0 }       // (mm) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
-//#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
+#define HOMING_BACKOFF_POST_MM { 2, 2 }  // (mm) Backoff from endstops after homing
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
@@ -2231,7 +2231,7 @@
 
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       C_XYZ_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
-    #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
+    #define X_CURRENT_HOME  (X_CURRENT+10)  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16    // 0..256
     #define X_RSENSE          0.11
     #define X_CHAIN_POS      -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
@@ -2239,7 +2239,7 @@
 
   #if AXIS_IS_TMC(X2)
     #define X2_CURRENT      C_XYZ_CURRENT
-    #define X2_CURRENT_HOME X2_CURRENT
+    #define X2_CURRENT_HOME (X2_CURRENT+10)
     #define X2_MICROSTEPS    16
     #define X2_RSENSE         0.11
     #define X2_CHAIN_POS     -1
@@ -2247,7 +2247,7 @@
 
   #if AXIS_IS_TMC(Y)
     #define Y_CURRENT       C_XYZ_CURRENT
-    #define Y_CURRENT_HOME  Y_CURRENT
+    #define Y_CURRENT_HOME  (Y_CURRENT+10)
     #define Y_MICROSTEPS     16
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
@@ -2255,7 +2255,7 @@
 
   #if AXIS_IS_TMC(Y2)
     #define Y2_CURRENT      C_XYZ_CURRENT
-    #define Y2_CURRENT_HOME Y2_CURRENT
+    #define Y2_CURRENT_HOME (Y2_CURRENT+10)
     #define Y2_MICROSTEPS    16
     #define Y2_RSENSE         0.11
     #define Y2_CHAIN_POS     -1
@@ -2440,9 +2440,9 @@
    * Define you own with
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    *
-   * TODO:try { 4, 9, -3 }
+   * TODO:try { 4, 9, -3 } for sensorless homing current at 596(see excel calculation sheet)
    */
-  #define CHOPPER_TMC2130 { 3/* 2 OR 3 */, -2, 6 }
+  #define CHOPPER_TMC2130 { 3, -2, 6 }
   #define CHOPPER_TIMING CHOPPER_TMC2130
 
   /**
@@ -2517,9 +2517,9 @@
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  8
+    #define X_STALL_SENSITIVITY  7
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  10
+    #define Y_STALL_SENSITIVITY  8
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
@@ -2539,7 +2539,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   #define TMC_HOME_PHASE { 640, 640, 640 }
+   //#define TMC_HOME_PHASE { 640, 640, 640 }
 
   /**
    * Beta feature!
