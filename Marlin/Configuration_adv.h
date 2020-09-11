@@ -2440,10 +2440,10 @@
    * Define you own with
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    *
-   * TODO:try { 4, 9, -3 } for sensorless homing current at 596(see excel calculation sheet)
    */
   #define CHOPPER_TMC2130 { 3, -2, 6 }
-  #define CHOPPER_TIMING CHOPPER_TMC2130
+  #define CHOPPER_TMC2130_V2 { 4, 9, -3 }
+  #define CHOPPER_TIMING CHOPPER_TMC2130_V2
 
   /**
    * Monitor Trinamic drivers
