@@ -627,12 +627,12 @@
  * the position of the toolhead relative to the workspace.
  */
 
-#define SENSORLESS_BACKOFF_MM  { 2,2 }     // (mm) Backoff from endstops before sensorless homing
+#define SENSORLESS_BACKOFF_MM  { 0,0}     // (mm) Backoff from endstops before sensorless homing
 
 #define HOMING_BUMP_MM      { /*5, 5, 2*/0,0,0 }       // (mm) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
-#define HOMING_BACKOFF_POST_MM { 2,2 }  // (mm) Backoff from endstops after homing
+#define HOMING_BACKOFF_POST_MM { 5,5 }  // (mm) Backoff from endstops after homing
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 #define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
@@ -2224,10 +2224,10 @@
  * https://github.com/teemuatlut/TMCStepper
  */
 #if HAS_TRINAMIC_CONFIG
-  #define C_XYZ_CURRENT 540
-  #define C_XYZ_HOMING_CURRENT 500
+  #define C_XYZ_CURRENT 422
+  #define C_XYZ_HOMING_CURRENT 200
   #define R_SENSE 0.11
-  #define HOLD_MULTIPLIER    0.7  // Scales down the holding current from run current
+  #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
@@ -2476,22 +2476,22 @@
    */
   #define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     110  // [mm/s]
-  #define X2_HYBRID_THRESHOLD    110
-  #define Y_HYBRID_THRESHOLD     110
-  #define Y2_HYBRID_THRESHOLD    110
-  #define Z_HYBRID_THRESHOLD       110
-  #define Z2_HYBRID_THRESHOLD      110
-  #define Z3_HYBRID_THRESHOLD      110
-  #define Z4_HYBRID_THRESHOLD      110
-  #define E0_HYBRID_THRESHOLD     110//DEFAULT 3
-  #define E1_HYBRID_THRESHOLD     110//DEFAULT 3
-  #define E2_HYBRID_THRESHOLD     110//DEFAULT 3
-  #define E3_HYBRID_THRESHOLD     110//DEFAULT 3
-  #define E4_HYBRID_THRESHOLD     110//DEFAULT 3
-  #define E5_HYBRID_THRESHOLD     110//DEFAULT 3
-  #define E6_HYBRID_THRESHOLD     110//DEFAULT 3
-  #define E7_HYBRID_THRESHOLD     110//DEFAULT 3
+  #define X_HYBRID_THRESHOLD     65  // [mm/s]
+  #define X2_HYBRID_THRESHOLD    65
+  #define Y_HYBRID_THRESHOLD     65
+  #define Y2_HYBRID_THRESHOLD    65
+  #define Z_HYBRID_THRESHOLD       5
+  #define Z2_HYBRID_THRESHOLD      5
+  #define Z3_HYBRID_THRESHOLD      5
+  #define Z4_HYBRID_THRESHOLD      5
+  #define E0_HYBRID_THRESHOLD     10//DEFAULT 3
+  #define E1_HYBRID_THRESHOLD     10//DEFAULT 3
+  #define E2_HYBRID_THRESHOLD     10//DEFAULT 3
+  #define E3_HYBRID_THRESHOLD     10//DEFAULT 3
+  #define E4_HYBRID_THRESHOLD     10//DEFAULT 3
+  #define E5_HYBRID_THRESHOLD     10//DEFAULT 3
+  #define E6_HYBRID_THRESHOLD     10//DEFAULT 3
+  #define E7_HYBRID_THRESHOLD     10//DEFAULT 3
 
   /**
    * Use StallGuard2 to home / probe X, Y, Z.
@@ -2568,8 +2568,7 @@
    * }
    */
   #define TMC_ADV() { \
-  }
-
+    }
 #endif // HAS_TRINAMIC_CONFIG
 
 // @section L64XX

@@ -752,7 +752,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 126/*93*//*104*/ }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,126/*93*//*104*/ }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -824,7 +824,7 @@
  */
 #if DISABLED(CLASSIC_JERK)
   //wanted jerk
-  #define C_JD_JERK 9.0
+  #define C_JD_JERK 10.0
   #define C_NOZZLE_DIAMETER 0.4
   // JD acceleration to the power of two
   #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
