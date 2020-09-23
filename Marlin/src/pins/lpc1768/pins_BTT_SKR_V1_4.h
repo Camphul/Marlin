@@ -151,6 +151,8 @@
 
 #define TEMP_1_PIN                      P0_23_A0  // A2 (T2) - (69) - TEMP_1_PIN
 #define TEMP_BED_PIN                    P0_25_A2  // A0 (T0) - (67) - TEMP_BED_PIN
+//  custom chamber pin name
+#define TEMP_CHAMBER_PIN    TEMP_1_PIN
 
 //
 // Software SPI pins for TMC2130 stepper drivers

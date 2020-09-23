@@ -132,10 +132,10 @@
 #if TEMP_SENSOR_CHAMBER
   #define CHAMBER_MINTEMP             5
   #define CHAMBER_MAXTEMP            60
-  #define TEMP_CHAMBER_HYSTERESIS     1   // (°C) Temperature proximity considered "close enough" to the target
-  //#define CHAMBER_LIMIT_SWITCHING
-  //#define HEATER_CHAMBER_PIN       44   // Chamber heater on/off pin
-  //#define HEATER_CHAMBER_INVERTING false
+  #define TEMP_CHAMBER_HYSTERESIS     3   // (°C) Temperature proximity considered "close enough" to the target
+  #define CHAMBER_LIMIT_SWITCHING
+  #define HEATER_CHAMBER_PIN       P1_25   // Chamber heater on/off pin
+  #define HEATER_CHAMBER_INVERTING false
 #endif
 
 #if DISABLED(PIDTEMPBED)
@@ -204,14 +204,14 @@
  * Thermal Protection parameters for the heated chamber.
  */
 #if ENABLED(THERMAL_PROTECTION_CHAMBER)
-  #define THERMAL_PROTECTION_CHAMBER_PERIOD    20 // Seconds
+  #define THERMAL_PROTECTION_CHAMBER_PERIOD    30 // Seconds
   #define THERMAL_PROTECTION_CHAMBER_HYSTERESIS 2 // Degrees Celsius
 
   /**
    * Heated chamber watch settings (M141/M191).
    */
   #define WATCH_CHAMBER_TEMP_PERIOD            60 // Seconds
-  #define WATCH_CHAMBER_TEMP_INCREASE           2 // Degrees Celsius
+  #define WATCH_CHAMBER_TEMP_INCREASE           4 // Degrees Celsius
 #endif
 
 #if ENABLED(PIDTEMP)
@@ -450,8 +450,8 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#define E0_AUTO_FAN_PIN -1
-#define E1_AUTO_FAN_PIN -1
+#define E0_AUTO_FAN_PIN P2_04
+#define E1_AUTO_FAN_PIN P2_04
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
 #define E4_AUTO_FAN_PIN -1
@@ -460,7 +460,7 @@
 #define E7_AUTO_FAN_PIN -1
 #define CHAMBER_AUTO_FAN_PIN -1
 
-#define EXTRUDER_AUTO_FAN_TEMPERATURE 50
+#define EXTRUDER_AUTO_FAN_TEMPERATURE 70 // just below PETG glass transition temperature to prevent heatcreep
 #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
 #define CHAMBER_AUTO_FAN_TEMPERATURE 30
 #define CHAMBER_AUTO_FAN_SPEED 255
@@ -632,7 +632,7 @@
 #define HOMING_BUMP_MM      { /*5, 5, 2*/0,0,0 }       // (mm) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
-#define HOMING_BACKOFF_POST_MM { 5,5 }  // (mm) Backoff from endstops after homing
+#define HOMING_BACKOFF_POST_MM { 10,5 }  // (mm) Backoff from endstops after homing
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 #define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
@@ -2224,16 +2224,17 @@
  * https://github.com/teemuatlut/TMCStepper
  */
 #if HAS_TRINAMIC_CONFIG
-  #define C_XYZ_CURRENT 422
-  #define C_XYZ_HOMING_CURRENT 200
+  #define C_XYZ_CURRENT 480
+  #define C_XYZ_HOMING_CURRENT C_XYZ_CURRENT
+#define C_XY_MICROSTEPS 32
   #define R_SENSE 0.11
-  #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
-  #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
+  #define HOLD_MULTIPLIER    0.35  // Scales down the holding current from run current
+  #define INTERPOLATE       false  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       C_XYZ_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  C_XYZ_HOMING_CURRENT  // (mA) RMS current for sensorless homing
-    #define X_MICROSTEPS     16    // 0..256
+    #define X_MICROSTEPS     C_XY_MICROSTEPS    // 0..256
     #define X_RSENSE          0.11
     #define X_CHAIN_POS      -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
   #endif
@@ -2249,7 +2250,7 @@
   #if AXIS_IS_TMC(Y)
     #define Y_CURRENT       C_XYZ_CURRENT
     #define Y_CURRENT_HOME  C_XYZ_HOMING_CURRENT
-    #define Y_MICROSTEPS     16
+    #define Y_MICROSTEPS     C_XY_MICROSTEPS
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
   #endif
@@ -2446,7 +2447,7 @@
 
   #define CHOPPER_TMC2130V2 { 3, 2, 1 }
 
-  #define CHOPPER_TIMING CHOPPER_TMC2130
+  #define CHOPPER_TIMING CHOPPER_DEFAULT_24V
 
   /**
    * Monitor Trinamic drivers
@@ -2476,14 +2477,14 @@
    */
   #define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     65  // [mm/s]
-  #define X2_HYBRID_THRESHOLD    65
-  #define Y_HYBRID_THRESHOLD     65
-  #define Y2_HYBRID_THRESHOLD    65
-  #define Z_HYBRID_THRESHOLD       5
-  #define Z2_HYBRID_THRESHOLD      5
-  #define Z3_HYBRID_THRESHOLD      5
-  #define Z4_HYBRID_THRESHOLD      5
+  #define X_HYBRID_THRESHOLD     150  // [mm/s]
+  #define X2_HYBRID_THRESHOLD    150
+  #define Y_HYBRID_THRESHOLD     150
+  #define Y2_HYBRID_THRESHOLD    150
+  #define Z_HYBRID_THRESHOLD     3
+  #define Z2_HYBRID_THRESHOLD    3
+  #define Z3_HYBRID_THRESHOLD    3
+  #define Z4_HYBRID_THRESHOLD    3
   #define E0_HYBRID_THRESHOLD     10//DEFAULT 3
   #define E1_HYBRID_THRESHOLD     10//DEFAULT 3
   #define E2_HYBRID_THRESHOLD     10//DEFAULT 3
@@ -2542,7 +2543,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   #define TMC_HOME_PHASE { 640, 640, 640 }
+   //#define TMC_HOME_PHASE { 640, 640, 640 }
 
   /**
    * Beta feature!
