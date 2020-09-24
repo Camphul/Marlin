@@ -2481,10 +2481,10 @@
   #define X2_HYBRID_THRESHOLD    180
   #define Y_HYBRID_THRESHOLD     180
   #define Y2_HYBRID_THRESHOLD    180
-  #define Z_HYBRID_THRESHOLD     20
-  #define Z2_HYBRID_THRESHOLD    20
-  #define Z3_HYBRID_THRESHOLD    20
-  #define Z4_HYBRID_THRESHOLD    20
+  #define Z_HYBRID_THRESHOLD     70
+  #define Z2_HYBRID_THRESHOLD    70
+  #define Z3_HYBRID_THRESHOLD    70
+  #define Z4_HYBRID_THRESHOLD    70
   #define E0_HYBRID_THRESHOLD     30//DEFAULT 3
   #define E1_HYBRID_THRESHOLD     30//DEFAULT 3
   #define E2_HYBRID_THRESHOLD     30//DEFAULT 3
@@ -3232,7 +3232,7 @@
  * Host Prompt Support enables Marlin to use the host for user prompts so
  * filament runout and other processes can be managed from the host side.
  */
-//#define HOST_ACTION_COMMANDS
+#define HOST_ACTION_COMMANDS
 #if ENABLED(HOST_ACTION_COMMANDS)
   //#define HOST_PROMPT_SUPPORT
 #endif
@@ -3242,7 +3242,7 @@
  *
  * Implement M486 to allow Marlin to skip objects
  */
-//#define CANCEL_OBJECTS
+#define CANCEL_OBJECTS
 
 /**
  * I2C position encoders for closed loop control.
