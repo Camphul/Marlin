@@ -2477,14 +2477,14 @@
    */
   #define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     150  // [mm/s]
-  #define X2_HYBRID_THRESHOLD    150
-  #define Y_HYBRID_THRESHOLD     150
-  #define Y2_HYBRID_THRESHOLD    150
-  #define Z_HYBRID_THRESHOLD     12
-  #define Z2_HYBRID_THRESHOLD    12
-  #define Z3_HYBRID_THRESHOLD    12
-  #define Z4_HYBRID_THRESHOLD    12
+  #define X_HYBRID_THRESHOLD     180  // [mm/s]
+  #define X2_HYBRID_THRESHOLD    180
+  #define Y_HYBRID_THRESHOLD     180
+  #define Y2_HYBRID_THRESHOLD    180
+  #define Z_HYBRID_THRESHOLD     20
+  #define Z2_HYBRID_THRESHOLD    20
+  #define Z3_HYBRID_THRESHOLD    20
+  #define Z4_HYBRID_THRESHOLD    20
   #define E0_HYBRID_THRESHOLD     30//DEFAULT 3
   #define E1_HYBRID_THRESHOLD     30//DEFAULT 3
   #define E2_HYBRID_THRESHOLD     30//DEFAULT 3
@@ -2543,7 +2543,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   #define TMC_HOME_PHASE { 640, 640, 640 }
+   #define TMC_HOME_PHASE { 128,128,128 }
 
   /**
    * Beta feature!
