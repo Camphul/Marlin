@@ -460,7 +460,7 @@
 #define E7_AUTO_FAN_PIN -1
 #define CHAMBER_AUTO_FAN_PIN -1
 
-#define EXTRUDER_AUTO_FAN_TEMPERATURE 70 // just below PETG glass transition temperature to prevent heatcreep
+#define EXTRUDER_AUTO_FAN_TEMPERATURE 20
 #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
 #define CHAMBER_AUTO_FAN_TEMPERATURE 30
 #define CHAMBER_AUTO_FAN_SPEED 255
@@ -632,10 +632,10 @@
 #define HOMING_BUMP_MM      { /*5, 5, 2*/0,0,0 }       // (mm) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR { 2, 2, 4 }       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
-#define HOMING_BACKOFF_POST_MM { 10,5 }  // (mm) Backoff from endstops after homing
+#define HOMING_BACKOFF_POST_MM { 0,0}  // (mm) Backoff from endstops after homing
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
-#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
+//#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
 
 // @section bltouch
@@ -658,7 +658,7 @@
 
   // Safety: The probe needs time to recognize the command.
   //         Minimum command delay (ms). Enable and increase if needed.
-  #define BLTOUCH_DELAY 300
+  #define BLTOUCH_DELAY 220
 
   /**
    * Settings for BLTOUCH Classic 1.2, 1.3 or BLTouch Smart 1.0, 2.0, 2.2, 3.0, 3.1, and most clones:
@@ -718,7 +718,7 @@
   // Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
   // If not defined, probe limits will be used.
   // Override with 'M422 S<index> X<pos> Y<pos>'
-  //#define Z_STEPPER_ALIGN_XY { {  10, 190 }, { 100,  10 }, { 190, 190 } }
+  #define Z_STEPPER_ALIGN_XY { {  50, 117 }, { 185,  117 } }
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -741,7 +741,7 @@
    *
    */
   #ifndef Z_STEPPER_ALIGN_XY
-    //#define Z_STEPPERS_ORIENTATION 0
+    #define Z_STEPPERS_ORIENTATION 0
   #endif
 
   // Provide Z stepper positions for more rapid convergence in bed alignment.
@@ -1823,7 +1823,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MINIMUM_STEPPER_PULSE 2
+//#define MINIMUM_STEPPER_PULSE 0
 
 /**
  * Maximum stepping rate (in Hz) the stepper driver allows
@@ -1917,7 +1917,7 @@
 //#define NO_TIMEOUTS 1000 // Milliseconds
 
 // Some clients will have this feature soon. This could make the NO_TIMEOUTS unnecessary.
-//#define ADVANCED_OK
+#define ADVANCED_OK
 
 // Printrun may have trouble receiving long strings all at once.
 // This option inserts short delays between lines of serial output.
@@ -2224,12 +2224,12 @@
  * https://github.com/teemuatlut/TMCStepper
  */
 #if HAS_TRINAMIC_CONFIG
-  #define C_XYZ_CURRENT 480
-  #define C_XYZ_HOMING_CURRENT C_XYZ_CURRENT
-#define C_XY_MICROSTEPS 32
+  #define C_XYZ_CURRENT 422
+  #define C_XYZ_HOMING_CURRENT 211
+#define C_XY_MICROSTEPS 16
   #define R_SENSE 0.11
-  #define HOLD_MULTIPLIER    0.35  // Scales down the holding current from run current
-  #define INTERPOLATE       false  // Interpolate X/Y/Z_MICROSTEPS to 256
+  #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
+  #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
     #define X_CURRENT       C_XYZ_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
@@ -2447,7 +2447,7 @@
 
   #define CHOPPER_TMC2130V2 { 3, 2, 1 }
 
-  #define CHOPPER_TIMING CHOPPER_DEFAULT_24V
+  #define CHOPPER_TIMING CHOPPER_TMC2130
 
   /**
    * Monitor Trinamic drivers
@@ -2470,7 +2470,7 @@
 
   /**
    * TMC2130, TMC2160, TMC2208, TMC2209, TMC5130 and TMC5160 only
-   * The driver will switch to spreadCycle when stepper speed is over HYBRID_THRESHOLD.
+   * The driver will switch to spreadCycle when stepper speed is over _THRESHOLD.
    * This mode allows for faster movements at the expense of higher noise levels.
    * STEALTHCHOP_(XY|Z|E) must be enabled to use HYBRID_THRESHOLD.
    * M913 X/Y/Z/E to live tune the setting
@@ -2481,18 +2481,18 @@
   #define X2_HYBRID_THRESHOLD    150
   #define Y_HYBRID_THRESHOLD     150
   #define Y2_HYBRID_THRESHOLD    150
-  #define Z_HYBRID_THRESHOLD     3
-  #define Z2_HYBRID_THRESHOLD    3
-  #define Z3_HYBRID_THRESHOLD    3
-  #define Z4_HYBRID_THRESHOLD    3
-  #define E0_HYBRID_THRESHOLD     10//DEFAULT 3
-  #define E1_HYBRID_THRESHOLD     10//DEFAULT 3
-  #define E2_HYBRID_THRESHOLD     10//DEFAULT 3
-  #define E3_HYBRID_THRESHOLD     10//DEFAULT 3
-  #define E4_HYBRID_THRESHOLD     10//DEFAULT 3
-  #define E5_HYBRID_THRESHOLD     10//DEFAULT 3
-  #define E6_HYBRID_THRESHOLD     10//DEFAULT 3
-  #define E7_HYBRID_THRESHOLD     10//DEFAULT 3
+  #define Z_HYBRID_THRESHOLD     12
+  #define Z2_HYBRID_THRESHOLD    12
+  #define Z3_HYBRID_THRESHOLD    12
+  #define Z4_HYBRID_THRESHOLD    12
+  #define E0_HYBRID_THRESHOLD     30//DEFAULT 3
+  #define E1_HYBRID_THRESHOLD     30//DEFAULT 3
+  #define E2_HYBRID_THRESHOLD     30//DEFAULT 3
+  #define E3_HYBRID_THRESHOLD     30//DEFAULT 3
+  #define E4_HYBRID_THRESHOLD     30//DEFAULT 3
+  #define E5_HYBRID_THRESHOLD     30//DEFAULT 3
+  #define E6_HYBRID_THRESHOLD     30//DEFAULT 3
+  #define E7_HYBRID_THRESHOLD     30//DEFAULT 3
 
   /**
    * Use StallGuard2 to home / probe X, Y, Z.
@@ -2543,7 +2543,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   //#define TMC_HOME_PHASE { 640, 640, 640 }
+   #define TMC_HOME_PHASE { 640, 640, 640 }
 
   /**
    * Beta feature!
