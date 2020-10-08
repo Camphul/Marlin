@@ -131,11 +131,11 @@
  */
 #if TEMP_SENSOR_CHAMBER
   #define CHAMBER_MINTEMP             5
-  #define CHAMBER_MAXTEMP            60
-  #define TEMP_CHAMBER_HYSTERESIS     3   // (°C) Temperature proximity considered "close enough" to the target
+  #define CHAMBER_MAXTEMP            90
+  #define TEMP_CHAMBER_HYSTERESIS     2   // (°C) Temperature proximity considered "close enough" to the target
   #define CHAMBER_LIMIT_SWITCHING
-  #define HEATER_CHAMBER_PIN       P1_25   // Chamber heater on/off pin
-  #define HEATER_CHAMBER_INVERTING false
+  #define HEATER_CHAMBER_PIN       P2_04   // Chamber heater on/off pin
+  //#define HEATER_CHAMBER_INVERTING false
 #endif
 
 #if DISABLED(PIDTEMPBED)
@@ -204,14 +204,14 @@
  * Thermal Protection parameters for the heated chamber.
  */
 #if ENABLED(THERMAL_PROTECTION_CHAMBER)
-  #define THERMAL_PROTECTION_CHAMBER_PERIOD    30 // Seconds
-  #define THERMAL_PROTECTION_CHAMBER_HYSTERESIS 2 // Degrees Celsius
+  #define THERMAL_PROTECTION_CHAMBER_PERIOD     480// Seconds
+  #define THERMAL_PROTECTION_CHAMBER_HYSTERESIS 60 // Degrees Celsius
 
   /**
    * Heated chamber watch settings (M141/M191).
    */
-  #define WATCH_CHAMBER_TEMP_PERIOD            60 // Seconds
-  #define WATCH_CHAMBER_TEMP_INCREASE           4 // Degrees Celsius
+  #define WATCH_CHAMBER_TEMP_PERIOD            240 // Seconds
+  #define WATCH_CHAMBER_TEMP_INCREASE           10 // Degrees Celsius
 #endif
 
 #if ENABLED(PIDTEMP)
@@ -450,8 +450,8 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#define E0_AUTO_FAN_PIN P2_04
-#define E1_AUTO_FAN_PIN P2_04
+#define E0_AUTO_FAN_PIN -1
+#define E1_AUTO_FAN_PIN -1
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
 #define E4_AUTO_FAN_PIN -1
@@ -462,7 +462,7 @@
 
 #define EXTRUDER_AUTO_FAN_TEMPERATURE 20
 #define EXTRUDER_AUTO_FAN_SPEED 255   // 255 == full speed
-#define CHAMBER_AUTO_FAN_TEMPERATURE 30
+#define CHAMBER_AUTO_FAN_TEMPERATURE 20
 #define CHAMBER_AUTO_FAN_SPEED 255
 
 /**
@@ -845,7 +845,7 @@
  * See https://hydraraptor.blogspot.com/2010/12/frequency-limit.html
  * Use M201 F<freq> G<min%> to change limits at runtime.
  */
-//#define XY_FREQUENCY_LIMIT      10 // (Hz) Maximum frequency of small zigzag infill moves. Set with M201 F<hertz>.
+#define XY_FREQUENCY_LIMIT      20 // (Hz) Maximum frequency of small zigzag infill moves. Set with M201 F<hertz>.
 #ifdef XY_FREQUENCY_LIMIT
   #define XY_FREQUENCY_MIN_PERCENT 5 // (percent) Minimum FR percentage to apply. Set with M201 G<min%>.
 #endif
@@ -1863,8 +1863,8 @@
 // @section serial
 
 // The ASCII buffer for serial input
-#define MAX_CMD_SIZE 96
-#define BUFSIZE 64
+#define MAX_CMD_SIZE 64
+#define BUFSIZE 16
 
 // Transmission to Host Buffer Size
 // To save 386 bytes of PROGMEM (and TX_BUFFER_SIZE+3 bytes of RAM) set to 0.
@@ -1873,7 +1873,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#define TX_BUFFER_SIZE 64
+#define TX_BUFFER_SIZE 32
 
 // Host Receive Buffer Size
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
@@ -2444,6 +2444,7 @@
    *
    */
   #define CHOPPER_TMC2130 { 3, -2, 6 }
+  #define CHOPPER_TMC2130V3 { 3, -1, 6 }
 
   #define CHOPPER_TMC2130V2 { 3, 2, 1 }
 

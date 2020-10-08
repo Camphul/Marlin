@@ -489,10 +489,9 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Customized PID
-  #define DEFAULT_Kp 22.69
-  #define DEFAULT_Ki 2.01
-  #define DEFAULT_Kd 64.13
-
+  #define DEFAULT_Kp 21.4374
+  #define DEFAULT_Ki 1.9044
+  #define DEFAULT_Kd 60.3276
   // Ultimaker
   //#define DEFAULT_Kp 22.2
   //#define DEFAULT_Ki 1.08
@@ -752,14 +751,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*/139/*93*//*104*/ }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*/126/*93*//*104*/ }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE           { 700, 700, 20, 25 }
+#define DEFAULT_MAX_FEEDRATE           { 500, 500, 8, 50 }
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -772,7 +771,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION       { 500, 500, 100, 5000 }
+#define DEFAULT_MAX_ACCELERATION       { 400, 400, 20, 5000 }
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -787,9 +786,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          400    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  400    // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   400    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -824,7 +823,7 @@
  */
 #if DISABLED(CLASSIC_JERK)
   //wanted jerk
-  #define C_JD_JERK 9.0
+  #define C_JD_JERK 8.0
   #define C_NOZZLE_DIAMETER 0.4
   // JD acceleration to the power of two
   #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
@@ -1005,7 +1004,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ -2.36}
+#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ -1.7800}
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
