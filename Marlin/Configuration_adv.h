@@ -2225,10 +2225,12 @@
  */
 #if HAS_TRINAMIC_CONFIG
   #define C_XYZ_CURRENT 422
+  #define C_Y_CURRENT C_XYZ_CURRENT
   #define C_XYZ_HOMING_CURRENT 211
+  #define C_Y_HOMING_CURRENT C_XYZ_HOMING_CURRENT
 #define C_XY_MICROSTEPS 16
   #define R_SENSE 0.11
-  #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
+  #define HOLD_MULTIPLIER    0.7  // Scales down the holding current from run current
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
@@ -2248,8 +2250,8 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       C_XYZ_CURRENT
-    #define Y_CURRENT_HOME  C_XYZ_HOMING_CURRENT
+    #define Y_CURRENT       C_Y_CURRENT
+    #define Y_CURRENT_HOME  C_Y_HOMING_CURRENT
     #define Y_MICROSTEPS     C_XY_MICROSTEPS
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
@@ -2296,7 +2298,7 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      650
+    #define E0_CURRENT      400
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
