@@ -751,18 +751,18 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*//*126*//*93*//*104*/415 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*//*126*//*93*//*104*//*415*/102 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE            { 400, 400, 20, 50 }
+#define DEFAULT_MAX_FEEDRATE            { 600, 600, 30, 60 }
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
+  #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 60 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -771,7 +771,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION       { 400, 400, 20, 800 }
+#define DEFAULT_MAX_ACCELERATION       { 600, 600, 30, 600 }
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -786,9 +786,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          400    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  400    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   400    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -798,7 +798,7 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-//#define CLASSIC_JERK
+#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
@@ -812,7 +812,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    5   // May be used by Linear Advance
+#define DEFAULT_EJERK    7   // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -823,7 +823,7 @@
  */
 #if DISABLED(CLASSIC_JERK)
   //wanted jerk
-  #define C_JD_JERK 7.8
+  #define C_JD_JERK 7
   #define C_NOZZLE_DIAMETER 0.4
   // JD acceleration to the power of two
   #define C_JD_JERK_SQUARED (C_JD_JERK * C_JD_JERK)
@@ -842,7 +842,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-#define S_CURVE_ACCELERATION
+//#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -1004,7 +1004,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -1.655}
+#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -1.635}
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1411,7 +1411,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_XY (90*60)
+#define HOMING_FEEDRATE_XY (80*60)
 #define HOMING_FEEDRATE_Z  (6*60)
 
 // Validate that endstops are triggered on homing moves
