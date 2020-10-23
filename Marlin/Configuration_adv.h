@@ -131,7 +131,7 @@
  */
 #if TEMP_SENSOR_CHAMBER
   #define CHAMBER_MINTEMP             5
-  #define CHAMBER_MAXTEMP            75
+  #define CHAMBER_MAXTEMP            83
   #define TEMP_CHAMBER_HYSTERESIS     2   // (°C) Temperature proximity considered "close enough" to the target
   #define CHAMBER_LIMIT_SWITCHING
   #define HEATER_CHAMBER_PIN       P2_04   // Chamber heater on/off pin
@@ -1618,9 +1618,9 @@
 #define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
-  #define LIN_ADVANCE_K 0.65    // Unit: mm compression per 1mm/s extruder speed
+  #define LIN_ADVANCE_K 0.67    // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
- // #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
+  #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
 #endif
 
 // @section leveling
@@ -1823,7 +1823,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MINIMUM_STEPPER_PULSE 0
+#define MINIMUM_STEPPER_PULSE 4
 
 /**
  * Maximum stepping rate (in Hz) the stepper driver allows
@@ -1837,7 +1837,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MAXIMUM_STEPPER_RATE 250000
+#define MAXIMUM_STEPPER_RATE 20000
 
 // @section temperature
 
@@ -2225,8 +2225,8 @@
  */
 #if HAS_TRINAMIC_CONFIG
   #define C_XYZ_CURRENT 422
-  #define C_Y_CURRENT 530
-  #define C_XYZ_HOMING_CURRENT 211
+  #define C_Y_CURRENT 422
+  #define C_XYZ_HOMING_CURRENT 340// 211
   #define C_Y_HOMING_CURRENT C_XYZ_HOMING_CURRENT
 #define C_XY_MICROSTEPS 16
   #define R_SENSE 0.11
@@ -2298,7 +2298,7 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      422
+    #define E0_CURRENT      340
     #define E0_MICROSTEPS    4
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
@@ -2480,22 +2480,22 @@
    */
   #define HYBRID_THRESHOLD
 
-  #define X_HYBRID_THRESHOLD     180  // [mm/s]
+  #define X_HYBRID_THRESHOLD     60  // [mm/s]
   #define X2_HYBRID_THRESHOLD    180
-  #define Y_HYBRID_THRESHOLD     180
+  #define Y_HYBRID_THRESHOLD     60
   #define Y2_HYBRID_THRESHOLD    180
-  #define Z_HYBRID_THRESHOLD     70
-  #define Z2_HYBRID_THRESHOLD    70
+  #define Z_HYBRID_THRESHOLD     180
+  #define Z2_HYBRID_THRESHOLD    180
   #define Z3_HYBRID_THRESHOLD    70
   #define Z4_HYBRID_THRESHOLD    70
-  #define E0_HYBRID_THRESHOLD     30//DEFAULT 3
-  #define E1_HYBRID_THRESHOLD     30//DEFAULT 3
-  #define E2_HYBRID_THRESHOLD     30//DEFAULT 3
-  #define E3_HYBRID_THRESHOLD     30//DEFAULT 3
-  #define E4_HYBRID_THRESHOLD     30//DEFAULT 3
-  #define E5_HYBRID_THRESHOLD     30//DEFAULT 3
-  #define E6_HYBRID_THRESHOLD     30//DEFAULT 3
-  #define E7_HYBRID_THRESHOLD     30//DEFAULT 3
+  #define E0_HYBRID_THRESHOLD     3//DEFAULT 3
+  #define E1_HYBRID_THRESHOLD     3//DEFAULT 3
+  #define E2_HYBRID_THRESHOLD     3//DEFAULT 3
+  #define E3_HYBRID_THRESHOLD     3//DEFAULT 3
+  #define E4_HYBRID_THRESHOLD     3//DEFAULT 3
+  #define E5_HYBRID_THRESHOLD     3//DEFAULT 3
+  #define E6_HYBRID_THRESHOLD     3//DEFAULT 3
+  #define E7_HYBRID_THRESHOLD     3//DEFAULT 3
 
   /**
    * Use StallGuard2 to home / probe X, Y, Z.
@@ -2524,9 +2524,9 @@
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  4
+    #define X_STALL_SENSITIVITY  6
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  4
+    #define Y_STALL_SENSITIVITY  7
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
@@ -2552,7 +2552,7 @@
    * Beta feature!
    * Create a 50/50 square wave step pulse optimal for stepper drivers.
    */
-  //#define SQUARE_WAVE_STEPPING
+  #define SQUARE_WAVE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.

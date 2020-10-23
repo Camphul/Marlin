@@ -751,8 +751,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*//*126*//*93*//*104*//*415*/102 }
-
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*//*126*//*93*//*104*//*415*/103 }
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
@@ -800,19 +799,19 @@
  */
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 10.0
-  #define DEFAULT_YJERK 10.0
+  #define DEFAULT_XJERK 12.0
+  #define DEFAULT_YJERK 11.0
   #define DEFAULT_ZJERK  0.3
 
   //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
 
   #define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
   #if ENABLED(LIMITED_JERK_EDITING)
-    #define MAX_JERK_EDIT_VALUES { 20, 20, 0.6, 10 } // ...or, set your own edit limits
+    #define MAX_JERK_EDIT_VALUES { 20, 20, 0.6, 50 } // ...or, set your own edit limits
   #endif
 #endif
 
-#define DEFAULT_EJERK    7   // May be used by Linear Advance
+#define DEFAULT_EJERK    40   // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -842,7 +841,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-//#define S_CURVE_ACCELERATION
+#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -1004,7 +1003,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -1.635}
+#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -1.535}
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1411,7 +1410,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_XY (80*60)
+#define HOMING_FEEDRATE_XY (90*60)
 #define HOMING_FEEDRATE_Z  (6*60)
 
 // Validate that endstops are triggered on homing moves
