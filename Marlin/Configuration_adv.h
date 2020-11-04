@@ -131,8 +131,8 @@
  */
 #if TEMP_SENSOR_CHAMBER
   #define CHAMBER_MINTEMP             5
-  #define CHAMBER_MAXTEMP            83
-  #define TEMP_CHAMBER_HYSTERESIS     2   // (°C) Temperature proximity considered "close enough" to the target
+  #define CHAMBER_MAXTEMP            90
+  #define TEMP_CHAMBER_HYSTERESIS     3   // (°C) Temperature proximity considered "close enough" to the target
   #define CHAMBER_LIMIT_SWITCHING
   #define HEATER_CHAMBER_PIN       P2_04   // Chamber heater on/off pin
   //#define HEATER_CHAMBER_INVERTING false
@@ -205,13 +205,13 @@
  */
 #if ENABLED(THERMAL_PROTECTION_CHAMBER)
   #define THERMAL_PROTECTION_CHAMBER_PERIOD     300// Seconds
-  #define THERMAL_PROTECTION_CHAMBER_HYSTERESIS 70 // Degrees Celsius
+  #define THERMAL_PROTECTION_CHAMBER_HYSTERESIS 80 // Degrees Celsius
 
   /**
    * Heated chamber watch settings (M141/M191).
    */
   #define WATCH_CHAMBER_TEMP_PERIOD            60 // Seconds
-  #define WATCH_CHAMBER_TEMP_INCREASE           70 // Degrees Celsius
+  #define WATCH_CHAMBER_TEMP_INCREASE           80 // Degrees Celsius
 #endif
 
 #if ENABLED(PIDTEMP)
@@ -2526,7 +2526,7 @@
     // TMC2209: 0...255. TMC2130: -64...63
     #define X_STALL_SENSITIVITY  6
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  7
+    #define Y_STALL_SENSITIVITY  8
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY

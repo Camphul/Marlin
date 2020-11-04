@@ -132,7 +132,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Fast boi"
+#define CUSTOM_MACHINE_NAME "Schildpadgenocide"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -416,7 +416,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_0 5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -460,7 +460,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 320
+#define HEATER_0_MAXTEMP 330
 #define HEATER_1_MAXTEMP 320
 #define HEATER_2_MAXTEMP 320
 #define HEATER_3_MAXTEMP 320
@@ -489,9 +489,9 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Customized PID
-  #define DEFAULT_Kp 21.4374
-  #define DEFAULT_Ki 1.9044
-  #define DEFAULT_Kd 60.3276
+  #define DEFAULT_Kp 18.0013
+  #define DEFAULT_Ki 1.4444
+  #define DEFAULT_Kd 56.0853
   // Ultimaker
   //#define DEFAULT_Kp 22.2
   //#define DEFAULT_Ki 1.08
@@ -1003,7 +1003,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -1.535}
+#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -3.25}
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
