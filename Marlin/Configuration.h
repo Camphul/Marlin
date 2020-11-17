@@ -468,7 +468,7 @@
 #define HEATER_5_MAXTEMP 320
 #define HEATER_6_MAXTEMP 320
 #define HEATER_7_MAXTEMP 320
-#define BED_MAXTEMP      120
+#define BED_MAXTEMP      135
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -489,9 +489,9 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Customized PID
-  #define DEFAULT_Kp 18.0013
-  #define DEFAULT_Ki 1.4444
-  #define DEFAULT_Kd 56.0853
+  #define DEFAULT_Kp 23.3766
+  #define DEFAULT_Ki 2.2031
+  #define DEFAULT_Kd 62.0123
   // Ultimaker
   //#define DEFAULT_Kp 22.2
   //#define DEFAULT_Ki 1.08
@@ -543,10 +543,10 @@
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
-  //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 133.1174
-  #define DEFAULT_bedKi 25.9463
-  #define DEFAULT_bedKd 455.3061
+  //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10
+    #define DEFAULT_bedKp 228.4052
+    #define DEFAULT_bedKi 41.0026
+    #define DEFAULT_bedKd 848.2208
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -751,7 +751,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*//*126*//*93*//*104*//*415*/103 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*//*126*//*93*//*104*//*415*/114.3 }
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
@@ -1003,7 +1003,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -3.25}
+#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -1.554}
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
