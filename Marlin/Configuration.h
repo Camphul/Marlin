@@ -751,7 +751,12 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,/*126*//*126*//*93*//*104*//*415*/114.3 }
+ /**
+  * STEPS PER UNIT per manufacturer and filament type
+  */
+#define ESTEPS_HOBBYKING_PC 111.3
+#define ESTEPS_BMG_DEFAULT 126
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400,ESTEPS_HOBBYKING_PC }
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
@@ -799,8 +804,8 @@
  */
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 12.0
-  #define DEFAULT_YJERK 11.0
+  #define DEFAULT_XJERK 10.0
+  #define DEFAULT_YJERK 10.0
   #define DEFAULT_ZJERK  0.3
 
   //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
@@ -1003,7 +1008,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -44.6, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -1.554}
+#define NOZZLE_TO_PROBE_OFFSET { 32, -6, /*-2.175, -2.225*/ /*-2.36*/ /*-1.7800*/ -3.584}
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1519,9 +1524,9 @@
 // @section temperature
 
 // Preheat Constants
-#define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 205
-#define PREHEAT_1_TEMP_BED     60
+#define PREHEAT_1_LABEL       "PC"
+#define PREHEAT_1_TEMP_HOTEND 295
+#define PREHEAT_1_TEMP_BED     125
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "ABS"
@@ -1800,7 +1805,7 @@
 //
 //  Set this option if CLOCKWISE causes values to DECREASE
 //
-//#define REVERSE_ENCODER_DIRECTION
+#define REVERSE_ENCODER_DIRECTION
 
 //
 // This option reverses the encoder direction for navigating LCD menus.
