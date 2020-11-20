@@ -30,7 +30,7 @@
 #include "../MarlinCore.h"
 #include "../sd/cardreader.h"
 #include "temperature.h"
-#include "../lcd/ultralcd.h"
+#include "../lcd/marlinui.h"
 
 #if ENABLED(ENDSTOP_INTERRUPTS_FEATURE)
   #include HAL_PATH(../HAL, endstop_interrupts.h)
@@ -351,7 +351,7 @@ void Endstops::event_handler() {
   if (hit_state == prev_hit_state) return;
   prev_hit_state = hit_state;
   if (hit_state) {
-    #if HAS_SPI_LCD
+    #if HAS_WIRED_LCD
       char chrX = ' ', chrY = ' ', chrZ = ' ', chrP = ' ';
       #define _SET_STOP_CHAR(A,C) (chr## A = C)
     #else
@@ -382,7 +382,7 @@ void Endstops::event_handler() {
     #endif
     SERIAL_EOL();
 
-    TERN_(HAS_SPI_LCD, ui.status_printf_P(0, PSTR(S_FMT " %c %c %c %c"), GET_TEXT(MSG_LCD_ENDSTOPS), chrX, chrY, chrZ, chrP));
+    TERN_(HAS_WIRED_LCD, ui.status_printf_P(0, PSTR(S_FMT " %c %c %c %c"), GET_TEXT(MSG_LCD_ENDSTOPS), chrX, chrY, chrZ, chrP));
 
     #if BOTH(SD_ABORT_ON_ENDSTOP_HIT, SDSUPPORT)
       if (planner.abort_on_endstop_hit) {
@@ -459,18 +459,19 @@ void _O2 Endstops::report_states() {
   #endif
   #if HAS_FILAMENT_SENSOR
     #if NUM_RUNOUT_SENSORS == 1
-      print_es_state(READ(FIL_RUNOUT_PIN) != FIL_RUNOUT_STATE, PSTR(STR_FILAMENT_RUNOUT_SENSOR));
+      print_es_state(READ(FIL_RUNOUT1_PIN) != FIL_RUNOUT1_STATE, PSTR(STR_FILAMENT_RUNOUT_SENSOR));
     #else
-      #define _CASE_RUNOUT(N) case N: pin = FIL_RUNOUT##N##_PIN; break;
+      #define _CASE_RUNOUT(N) case N: pin = FIL_RUNOUT##N##_PIN; state = FIL_RUNOUT##N##_STATE; break;
       LOOP_S_LE_N(i, 1, NUM_RUNOUT_SENSORS) {
         pin_t pin;
+        uint8_t state;
         switch (i) {
           default: continue;
           REPEAT_S(1, INCREMENT(NUM_RUNOUT_SENSORS), _CASE_RUNOUT)
         }
         SERIAL_ECHOPGM(STR_FILAMENT_RUNOUT_SENSOR);
         if (i > 1) SERIAL_CHAR(' ', '0' + i);
-        print_es_state(extDigitalRead(pin) != FIL_RUNOUT_STATE);
+        print_es_state(extDigitalRead(pin) != state);
       }
       #undef _CASE_RUNOUT
     #endif
@@ -505,7 +506,7 @@ void Endstops::update() {
 
   // With Dual X, endstops are only checked in the homing direction for the active extruder
   #if ENABLED(DUAL_X_CARRIAGE)
-    #define E0_ACTIVE stepper.movement_extruder() == 0
+    #define E0_ACTIVE stepper.last_moved_extruder == 0
     #define X_MIN_TEST() ((X_HOME_DIR < 0 && E0_ACTIVE) || (X2_HOME_DIR < 0 && !E0_ACTIVE))
     #define X_MAX_TEST() ((X_HOME_DIR > 0 && E0_ACTIVE) || (X2_HOME_DIR > 0 && !E0_ACTIVE))
   #else
@@ -899,6 +900,9 @@ void Endstops::update() {
         hit = true;
       }
     #endif
+
+    if (TERN0(ENDSTOP_INTERRUPTS_FEATURE, hit)) update();
+
     return hit;
   }
 
