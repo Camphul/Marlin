@@ -2284,7 +2284,6 @@
 #define C_XY_MICROSTEPS 16
   #define R_SENSE 0.11
   #define HOLD_MULTIPLIER    0.7  // Scales down the holding current from run current
-  #define HOLD_MULTIPLIER    0.5  // Scales down the holding current from run current
 
   /**
    * Interpolate microsteps to 256
